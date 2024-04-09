@@ -1,0 +1,7 @@
+name: Spookly-Core
+author: NEhlen
+main: de.nehlen.spookly.SpooklyCorePlugin
+version: ${project.version}-${build.number}
+api-version: 1.20
+depend:
+  - SpooklyCloudnetUtils
