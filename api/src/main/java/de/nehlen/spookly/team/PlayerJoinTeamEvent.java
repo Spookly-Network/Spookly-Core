@@ -8,7 +8,7 @@ import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-public class PlayerJoinTeamEvent extends SpooklyPlayerEvent implements Cancellable {
+public class PlayerJoinTeamEvent extends SpooklyPlayerEvent {
 
     private static final HandlerList handlers = new HandlerList();
     private boolean cancelled;
@@ -17,18 +17,6 @@ public class PlayerJoinTeamEvent extends SpooklyPlayerEvent implements Cancellab
     public PlayerJoinTeamEvent(SpooklyPlayer player, Team team) {
         super(player);
         this.team = team;
-    }
-
-    @Override
-    public boolean isCancelled()
-    {
-        return this.cancelled;
-    }
-
-    @Override
-    public void setCancelled(boolean cancelled)
-    {
-        this.cancelled = cancelled;
     }
 
     @Override

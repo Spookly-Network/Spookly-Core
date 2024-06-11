@@ -56,6 +56,13 @@ public abstract class SpooklyPlugin extends JavaPlugin {
         }
     }
 
+    public <T extends CommandExecutor> void registerCommandOnly(String cmd, T handler) {
+        PluginCommand command = this.getCommand(cmd);
+        if (command != null) {
+            command.setExecutor(handler);
+        }
+    }
+
     public boolean isPluginPresent(@Nonnull String name) {
         return this.getServer().getPluginManager().getPlugin(name) != null;
     }

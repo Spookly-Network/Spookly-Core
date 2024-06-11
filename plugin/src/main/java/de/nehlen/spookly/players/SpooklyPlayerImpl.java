@@ -3,6 +3,7 @@ package de.nehlen.spookly.players;
 import de.nehlen.spookly.SpooklyCorePlugin;
 import de.nehlen.spookly.player.SpooklyPlayer;
 import de.nehlen.spookly.punishments.PunishReason;
+import de.nehlen.spookly.punishments.Punishment;
 import de.nehlen.spooklycloudnetutils.manager.GroupManager;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,20 +15,25 @@ import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.entity.Player;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Accessors(fluent = true, chain = false)
 public class SpooklyPlayerImpl extends SpooklyOfflinePlayerImpl implements SpooklyPlayer {
 
     private final Player player;
-    @Getter @Setter private Component prefix;
+    @Getter private Component prefix;
+    private Integer tabSortId;
     @Getter private TextColor nameColor;
+    @Getter @Setter private List<Punishment> activePunishments;
 
     protected SpooklyPlayerImpl(Player player, String texture, Integer points, Instant lastPlayed, Instant firstPlayed) {
-        super(player.getUniqueId(), player.getName(),"", 0, lastPlayed, firstPlayed);
+        super(player.getUniqueId(), player.getName(), texture, points, lastPlayed, firstPlayed);
         this.player = player;
+        this.activePunishments = new ArrayList<>();
+        this.resetNameTag();
     }
-
 
     @Override
     public Player toPlayer() {
@@ -36,13 +42,37 @@ public class SpooklyPlayerImpl extends SpooklyOfflinePlayerImpl implements Spook
 
     @Override
     public void resetNameTag() {
-        this.nameColor(NamedTextColor.GRAY);
+        this.nameColor(TextColor.fromHexString(GroupManager.getGroupColor(this.player)));
         Component defaultPrefix = Component.empty().color(nameColor())
                 .append(Component.translatable(GroupManager.getGroupPrefix(this.player)).font(Key.key("rangs")).color(NamedTextColor.WHITE))
                 .append(Component.text(" "));
-        this.prefix(defaultPrefix);
+        this.prefix(defaultPrefix, GroupManager.getGroupSortId(player) | 0);
     }
 
+    @Override
+    public void prefix(Component prefix) {
+        this.prefix = prefix;
+        this.refreshNameTag();
+    }
+
+    @Override
+    public void prefix(Component prefix, Integer sortId) {
+        SpooklyCorePlugin.getInstance().getLogger().info("Setting sortId to " + sortId + " for " + player.getName());
+        this.tabSortId = sortId;
+        this.prefix(prefix);
+    }
+
+    @Override
+    public Integer tabSortId() {
+        return tabSortId;
+    }
+
+    @Override
+    public void refreshNameTag() {
+        SpooklyCorePlugin.getInstance().getNametagManager().refreshNameTag(this);
+    }
+
+    @Override
     public void nameColor(final TextColor color) {
         this.nameColor = color;
         this.toPlayer().displayName(Component.text(name()).color(color));
@@ -88,7 +118,7 @@ public class SpooklyPlayerImpl extends SpooklyOfflinePlayerImpl implements Spook
 
         if (!this.textureUrl().equals(onlineTexture))
             this.textureUrl(onlineTexture);
-        if(!this.name().equals(player.getName()))
+        if (!this.name().equals(player.getName()))
             this.name(player.getName());
     }
 
@@ -97,6 +127,12 @@ public class SpooklyPlayerImpl extends SpooklyOfflinePlayerImpl implements Spook
         return player.getPlayerProfile().getProperties().stream()
                 .filter(item -> item.getName().equals("textures"))
                 .toList().get(0).getValue();
+    }
+
+    @Override
+    public void addPunishment(Punishment punishment) {
+        this.activePunishments.add(punishment);
+        super.addPunishment(punishment);
     }
 
     public static SpooklyPlayerBuilder builder(Player player) {

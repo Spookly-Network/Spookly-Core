@@ -20,7 +20,7 @@ public interface Team {
      * Removes a player from the Team
      * @param player the player that gets removed
      */
-    void removePlayer(Player player);
+    boolean removePlayer(Player player);
 
     /**
      * Checks if a player is in this team.
@@ -51,6 +51,7 @@ public interface Team {
     void addToMemory(String key, Object object);
     void removeFromMemory(String key);
     void replaceFromMemory(String key, Object object);
+    Integer tabSortId();
 
     interface Builder {
         Builder maxTeamSize(final int maxTeamSize);
@@ -58,6 +59,7 @@ public interface Team {
         Builder prefix(final Component prefix);
         Builder teamName(final Component teamName);
         Builder addToMemory(String key, Object object);
+        Builder tabSortId(final int tabSortId);
         Team build();
     }
 }

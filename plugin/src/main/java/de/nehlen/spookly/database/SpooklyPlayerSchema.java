@@ -16,12 +16,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.Instant;
-import java.util.Date;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.stream.Collectors;
 
 public class SpooklyPlayerSchema implements Schema {
 
@@ -45,6 +43,16 @@ public class SpooklyPlayerSchema implements Schema {
         table.append("PRIMARY KEY (`uuid`)");
         connection.executeUpdateAsync("CREATE TABLE IF NOT EXISTS " + schemaName + " (" + table.toString() + ")", resultSet -> {
         });
+    }
+
+    @Override
+    public void set(String field, UUID identifier, Object value) {
+        return;
+    }
+
+    @Override
+    public void get(String field, UUID identifier, java.util.function.Consumer<ResultSet> consumer) {
+        return;
     }
 
     public CompletableFuture<Boolean> userExists(Player player) {
@@ -116,7 +124,7 @@ public class SpooklyPlayerSchema implements Schema {
                             var lastLogin = resultSet.getTimestamp("lastLogin").toInstant();
                             var firstLogin = resultSet.getTimestamp("firstLogin").toInstant();
 
-                            callback.accept(new SpooklyOfflinePlayerImpl(uuid, texture, name, points, lastLogin, firstLogin));
+                            callback.accept(new SpooklyOfflinePlayerImpl(uuid, name, texture, points, lastLogin, firstLogin));
                             connection.close();
                         } else {
                             callback.accept(null);
@@ -147,7 +155,7 @@ public class SpooklyPlayerSchema implements Schema {
                         var firstLogin = resultSet.getTimestamp("firstLogin").toInstant();
 
                         connection.close();
-                        return new SpooklyOfflinePlayerImpl(uuid, texture, name, points, lastLogin, firstLogin);
+                        return new SpooklyOfflinePlayerImpl(uuid, name, texture, points, lastLogin, firstLogin);
                     } else {
                         connection.close();
                         return null;

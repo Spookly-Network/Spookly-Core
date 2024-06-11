@@ -11,6 +11,7 @@ import de.nehlen.spookly.team.TeamDestroyEvent;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import io.papermc.paper.event.player.PlayerDeepSleepEvent;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.*;
@@ -22,10 +23,16 @@ import org.bukkit.event.server.ServerListPingEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
+
 public class Listener implements org.bukkit.event.Listener {
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onPlayerJoin(PlayerJoinEvent event) {
+        SpooklyCorePlugin.getInstance().getEventExecuter().reciveEventAction(event);
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onPlayerLogin(PlayerLoginEvent event) {
         SpooklyCorePlugin.getInstance().getEventExecuter().reciveEventAction(event);
     }
 

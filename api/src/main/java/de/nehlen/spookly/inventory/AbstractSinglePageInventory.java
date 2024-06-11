@@ -2,6 +2,7 @@ package de.nehlen.spookly.inventory;
 
 import lombok.Getter;
 import lombok.experimental.Accessors;
+import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryAction;
@@ -19,7 +20,7 @@ public abstract class AbstractSinglePageInventory implements SinglePageInventory
     private Menu menu;
     protected Player player;
 
-    public AbstractSinglePageInventory(Integer rows, String title, Player player) {
+    public AbstractSinglePageInventory(Integer rows, Component title, Player player) {
         this.menu = ChestMenu.builder(rows).title(title).build();
         this.player = player;
     }

@@ -14,4 +14,5 @@ public interface TeamManager {
     void removeEmptyTeams();
     Team team(UUID uuid);
     List<Team> registeredTeams();
+    boolean removePlayerFromTeams(Player player);
 }

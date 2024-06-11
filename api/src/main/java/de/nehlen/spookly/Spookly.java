@@ -1,9 +1,10 @@
 package de.nehlen.spookly;
 
-import de.nehlen.spookly.phase.GamePhase;
 import de.nehlen.spookly.phase.GamePhaseManager;
+import de.nehlen.spookly.placeholder.PlaceholderManager;
 import de.nehlen.spookly.player.SpooklyOfflinePlayer;
 import de.nehlen.spookly.player.SpooklyPlayer;
+import de.nehlen.spookly.punishments.Punishment;
 import de.nehlen.spookly.team.Team;
 import de.nehlen.spookly.team.TeamManager;
 import lombok.Getter;
@@ -12,21 +13,26 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
-import java.text.MessageFormat;
 import java.util.List;
 import java.util.UUID;
 
 public final class Spookly {
-    @Getter private static SpooklyServer server;
+    private static SpooklyServer server;
 
-    private Spookly() {}
+    private Spookly() {
+    }
 
-    public static void setSpooklyServer(@NotNull SpooklyServer server) {
-        if(Spookly.server != null) {
+    @NotNull
+    public static SpooklyServer getServer() {
+        return server;
+    }
+
+    public static void setSpooklyServer(@NotNull SpooklyServer spooklyServer) {
+        if (Spookly.server != null) {
             throw new UnsupportedOperationException("Cannot redefine singleton Server");
         }
 
-        Spookly.server = server;
+        server = spooklyServer;
         Bukkit.getLogger().info("Spookly-Core initialized.");
     }
 
@@ -50,6 +56,10 @@ public final class Spookly {
         return server.getOnlinePlayers();
     }
 
+    public static PlaceholderManager getPlaceholderManager() {
+        return server.getPlaceholderManager();
+    }
+
     public static TeamManager getTeamManager() {
         return server.getTeamManager();
     }
@@ -60,5 +70,9 @@ public final class Spookly {
 
     public static Team.Builder buildTeam() {
         return server.buildTeam();
+    }
+
+    public static Punishment.Builder buildPunishment(SpooklyOfflinePlayer target, SpooklyPlayer source) {
+        return server.getPunishmentBuilder(target, source);
     }
 }

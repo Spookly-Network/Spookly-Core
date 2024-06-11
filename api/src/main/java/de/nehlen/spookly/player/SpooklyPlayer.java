@@ -1,9 +1,12 @@
 package de.nehlen.spookly.player;
 
 import de.nehlen.spookly.punishments.PunishReason;
+import de.nehlen.spookly.punishments.Punishment;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.entity.Player;
+
+import java.util.List;
 
 public interface SpooklyPlayer extends SpooklyOfflinePlayer {
 
@@ -11,6 +14,11 @@ public interface SpooklyPlayer extends SpooklyOfflinePlayer {
 
     Component prefix();
     void prefix(Component prefix);
+    void prefix(Component prefix, Integer sortId);
+    Integer tabSortId();
+
+    void activePunishments(List<Punishment> punishments);
+    List<Punishment> activePunishments();
 
     void resetNameTag();
     Component nameTag();
@@ -22,4 +30,5 @@ public interface SpooklyPlayer extends SpooklyOfflinePlayer {
     void kick(PunishReason reason);
 
     void updatePlayerFile();
+    void refreshNameTag();
 }

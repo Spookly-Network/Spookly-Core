@@ -13,9 +13,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
 import java.util.*;
+import java.util.function.Consumer;
 
-@Getter @Accessors(fluent = true, chain = false)
-public class TeamImpl implements Team{
+@Getter
+@Accessors(fluent = true, chain = false)
+public class TeamImpl implements Team {
 
     private final UUID uuid;
     private final List<Player> registeredPlayers;
@@ -25,10 +27,11 @@ public class TeamImpl implements Team{
     @Setter private Inventory teamInventory = Bukkit.createInventory(null, 27, Component.text(""));
     @Setter private Component teamName;
     @Setter private Component prefix;
+    @Getter private Integer tabSortId;
 
     protected final TeamManager teamManager;
 
-    protected TeamImpl(Integer maxTeamSize, TextColor teamColor, Component prefix, Component teamName, Map<String, Object> memory) {
+    protected TeamImpl(Integer maxTeamSize, TextColor teamColor, Component prefix, Component teamName, Integer tabSortId, Map<String, Object> memory) {
         this.uuid = UUID.randomUUID();
 
         this.maxTeamSize = maxTeamSize;
@@ -36,6 +39,7 @@ public class TeamImpl implements Team{
         this.prefix = prefix;
         this.teamName = teamName;
         this.memory = memory;
+        this.tabSortId = tabSortId;
 
         this.registeredPlayers = new ArrayList<>();
         this.teamManager = Spookly.getTeamManager();
@@ -44,37 +48,29 @@ public class TeamImpl implements Team{
     @Override
     public void registerPlayer(Player player) {
         SpooklyPlayer spooklyPlayer = Spookly.getPlayer(player);
-        PlayerJoinTeamEvent playerJoinTeamEvent = new PlayerJoinTeamEvent(spooklyPlayer, this);
-
-        if (this.teamManager.contains(this)) {
-            if (!(this.registeredPlayers.size() >= this.maxTeamSize)) {
-
-                this.teamManager.registeredTeams().stream().filter(team -> team.contains(player)).forEach(team -> {
-                    PlayerQuitTeamEvent playerQuitTeamEvent = new PlayerQuitTeamEvent(spooklyPlayer, team);
-                    Bukkit.getScheduler().runTask(SpooklyCorePlugin.getInstance(), () -> Bukkit.getPluginManager().callEvent(playerQuitTeamEvent));
-                    if (!playerQuitTeamEvent.isCancelled())
-                        team.removePlayer(player);
-                });
-
-                Bukkit.getScheduler().runTask(SpooklyCorePlugin.getInstance(), () -> Bukkit.getPluginManager().callEvent(playerJoinTeamEvent));
-                if (!playerJoinTeamEvent.isCancelled()) {
-                    this.registeredPlayers.add(player);
-                }
-            }
+        if (!this.teamManager.contains(this))
+            return;
+        if ((this.registeredPlayers.size() >= this.maxTeamSize))
+            return;
+        if (this.teamManager.removePlayerFromTeams(player)) {
+            PlayerJoinTeamEvent playerJoinTeamEvent = new PlayerJoinTeamEvent(spooklyPlayer, this);
+            Bukkit.getScheduler().runTaskLater(SpooklyCorePlugin.getInstance(), () -> Bukkit.getPluginManager().callEvent(playerJoinTeamEvent), 2);
+            this.registeredPlayers.add(player);
         }
     }
 
     @Override
-    public void removePlayer(Player player) {
+    public boolean removePlayer(Player player) {
         SpooklyPlayer spooklyPlayer = Spookly.getPlayer(player);
         PlayerQuitTeamEvent playerQuitTeamEvent = new PlayerQuitTeamEvent(spooklyPlayer, this);
 
         if (this.teamManager.contains(this))
             if (this.registeredPlayers.contains(player)) {
                 Bukkit.getScheduler().runTask(SpooklyCorePlugin.getInstance(), () -> Bukkit.getPluginManager().callEvent(playerQuitTeamEvent));
-                if (!playerQuitTeamEvent.isCancelled())
-                    this.registeredPlayers.remove(player);
+                this.registeredPlayers.remove(player);
+                return true;
             }
+        return false;
     }
 
     @Override
@@ -116,9 +112,11 @@ public class TeamImpl implements Team{
         private TextColor teamColor;
         private Component prefix;
         private Component teamName;
+        private Integer tabSortId = 0;
         private Map<String, Object> memory = new HashMap<>();
 
-        protected TeamBuilder() {}
+        protected TeamBuilder() {
+        }
 
         public TeamBuilder maxTeamSize(final int maxTeamSize) {
             this.maxTeamSize = maxTeamSize;
@@ -134,16 +132,24 @@ public class TeamImpl implements Team{
             this.prefix = prefix;
             return this;
         }
+
         public TeamBuilder teamName(final Component teamName) {
             this.teamName = teamName;
             return this;
         }
+
+        public TeamBuilder tabSortId(int tabSortId) {
+            this.tabSortId = tabSortId;
+            return this;
+        }
+
         public TeamBuilder addToMemory(String key, Object object) {
             this.memory.put(key, object);
             return this;
         }
+
         public Team build() {
-            return new TeamImpl(maxTeamSize, teamColor, prefix, teamName, memory);
+            return new TeamImpl(maxTeamSize, teamColor, prefix, teamName, tabSortId, memory);
         }
 
     }

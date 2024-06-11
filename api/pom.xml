@@ -8,7 +8,7 @@
     <parent>
         <groupId>de.nehlen</groupId>
         <artifactId>Spookly-Core-Plugin</artifactId>
-        <version>${spookly.version}</version>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
 
     <properties>
@@ -34,8 +34,13 @@
             <groupId>org.ipvp</groupId>
             <artifactId>canvas</artifactId>
             <version>1.7.1.B1-SNAPSHOT</version>
-            <scope>provided</scope>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>5.0.1</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
-
 </project>

@@ -1,15 +1,18 @@
 package de.nehlen.spookly.configuration;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.WorldCreator;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Set;
 import java.util.logging.Level;
 
 public class Config implements ConfigurationWrapper {
+
     private final YamlConfiguration fileConfiguration = new YamlConfiguration();
     private File file;
 
@@ -19,9 +22,11 @@ public class Config implements ConfigurationWrapper {
             if (!directory.exists()) {
                 directory.mkdirs();
             }
-            try {file.createNewFile();}
-            catch (Exception e) {
-                Bukkit.getLogger().log(Level.SEVERE, "Could not create " + file.getName() + ":", e);}
+            try {
+                file.createNewFile();
+            } catch (Exception e) {
+                Bukkit.getLogger().log(Level.SEVERE, "Could not create " + file.getName() + ":", e);
+            }
         }
         this.load(file);
     }
@@ -41,7 +46,7 @@ public class Config implements ConfigurationWrapper {
     public void save() {
         if (file != null) {
             try {
-                getConfig().save(file);
+                fileConfiguration.save(file);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -87,6 +92,14 @@ public class Config implements ConfigurationWrapper {
     public <T> T get(String path) {
         try {
             return (T) fileConfiguration.get(path);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Set<String> getKeys(String path, boolean deep) {
+        try {
+            return fileConfiguration.getConfigurationSection(path).getKeys(deep);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -140,8 +153,10 @@ public class Config implements ConfigurationWrapper {
     }
 
     @Override
-    public YamlConfiguration getConfig() {
-        return fileConfiguration;
+    public Color getColor(String path) {
+        String argbString = getOrSetDefault(path, "0,0,0,0");
+        String[] values = argbString.split(",");
+        return Color.fromARGB(Integer.parseInt(values[3]), Integer.parseInt(values[0]), Integer.parseInt(values[1]), Integer.parseInt(values[2]));
     }
 
     @Override

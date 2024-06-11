@@ -1,5 +1,6 @@
 package de.nehlen.spookly.inventory;
 
+import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryAction;
@@ -20,7 +21,7 @@ public abstract class AbstractMultiPageInventory implements MultiPageInventory {
     private PaginatedMenuBuilder switcherInventoryPages;
     protected Player player;
 
-    public AbstractMultiPageInventory(Integer rows, String title, Player player) {
+    public AbstractMultiPageInventory(Integer rows, Component title, Player player) {
         Menu.Builder pageTemplate = ChestMenu.builder(rows).title(title).redraw(true);
         BinaryMask.Builder itemSlots = BinaryMask.builder(pageTemplate.getDimensions());
 
@@ -33,7 +34,7 @@ public abstract class AbstractMultiPageInventory implements MultiPageInventory {
                 .slots(itemSlots.build());
     }
 
-    public AbstractMultiPageInventory(Integer rows, String title, MaskTemplate maskTemplate, Player player) {
+    public AbstractMultiPageInventory(Integer rows, Component title, MaskTemplate maskTemplate, Player player) {
         Menu.Builder pageTemplate = ChestMenu.builder(rows).title(title).redraw(true);
 
         this.player = player;

@@ -4,7 +4,6 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import de.nehlen.spookly.SpooklyCorePlugin;
 import lombok.Getter;
-import org.bukkit.Bukkit;
 
 import java.io.Closeable;
 import java.sql.PreparedStatement;
@@ -13,11 +12,11 @@ import java.sql.SQLException;
 import java.util.function.Consumer;
 import java.util.logging.Level;
 
-public class Connection implements Closeable {
+public class ConnectionImpl implements Connection {
     private final SpooklyCorePlugin plugin;
     @Getter private final HikariDataSource hikariDataSource;
 
-    public Connection(final SpooklyCorePlugin plugin) {
+    public ConnectionImpl(final SpooklyCorePlugin plugin) {
         this.plugin = plugin;
         HikariConfig hikariConfig = new HikariConfig();
         hikariConfig.setJdbcUrl((String) plugin.getDatabaseConfiguration().getOrSetDefault("database.url", "jdbc:mysql://localhost:3306/database"));
@@ -35,6 +34,7 @@ public class Connection implements Closeable {
             try(final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
                 addArguments(preparedStatement, args);
                 preparedStatement.execute();
+                hikariDataSource.getConnection().close();
             } catch(SQLException exception) {
                 exception.printStackTrace();
             }
@@ -48,6 +48,7 @@ public class Connection implements Closeable {
             try(final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
                 addArguments(preparedStatement, args);
                 callback.accept(preparedStatement.executeUpdate());
+                hikariDataSource.getConnection().close();
             }
         } catch(SQLException exception) {
             exception.printStackTrace();
@@ -59,6 +60,7 @@ public class Connection implements Closeable {
             try(final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
                 addArguments(preparedStatement, args);
                 callback.accept(preparedStatement.executeQuery());
+                hikariDataSource.getConnection().close();
             } catch(SQLException exception) {
                 exception.printStackTrace();
             }
@@ -97,7 +99,7 @@ public class Connection implements Closeable {
         }).start();
     }
 
-    public void executeQueryAsync(final String query, final org.bukkit.util.Consumer<ResultSet> callback, final Object... args) {
+    public void executeQueryAsync(final String query, final Consumer<ResultSet> callback, final Object... args) {
         new Thread(() -> {
             try(final java.sql.Connection connection = hikariDataSource.getConnection()) {
                 try(final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -119,6 +121,7 @@ public class Connection implements Closeable {
             try(final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
                 addArguments(preparedStatement, arg);
                 try(ResultSet resultSet = preparedStatement.executeQuery()) {
+                    hikariDataSource.getConnection().close();
                     if(resultSet.next()) return resultSet.getObject(selection);
                 } catch(SQLException exception) {
                     exception.printStackTrace();

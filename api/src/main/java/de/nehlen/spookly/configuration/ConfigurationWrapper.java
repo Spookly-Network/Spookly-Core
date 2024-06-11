@@ -1,10 +1,12 @@
 package de.nehlen.spookly.configuration;
 
+import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Set;
 
 public interface ConfigurationWrapper {
 
@@ -93,12 +95,14 @@ public interface ConfigurationWrapper {
      */
     Location getLocation(String path);
 
+
     /**
-     * Gets the underlying YamlConfiguration object.
+     * Gets the Color value at the specified path.
      *
-     * @return the underlying YamlConfiguration object
+     * @param path the path to get the value at
+     * @return the Color value at the specified path, or 0,0,0 if no value exists at the path or the value is not a rgb color
      */
-    YamlConfiguration getConfig();
+    Color getColor(String path);
 
     /**
      * Gets the value at the specified path, or sets the value to the default value and returns it if no value exists at the path.
@@ -108,6 +112,24 @@ public interface ConfigurationWrapper {
      * @return the value at the specified path, or the default value if no value exists at the path
      */
     <T> T getOrSetDefault(String path, T defaultValue);
+
+    /**
+     * See {@link org.bukkit.configuration.ConfigurationSection#getKeys(boolean)}
+     * Gets a set containing all keys in this section.
+     *  <p>
+     *  If deep is set to true, then this will contain all the keys within any
+     *  child {@link org.bukkit.configuration.ConfigurationSection}s (and their children, etc). These
+     *  will be in a valid path notation for you to use.
+     *  <p>
+     *  If deep is set to false, then this will contain only the keys of any
+     *  direct children, and not their own children.
+     *
+     *  @param path the path to get the value at
+     *  @param deep Whether or not to get a deep list, as opposed to a shallow
+     *      list.
+     *  @return Set of keys contained within this ConfigurationSection.
+     */
+    Set<String> getKeys(String path, boolean deep);
 
     boolean isSet(String path);
 }

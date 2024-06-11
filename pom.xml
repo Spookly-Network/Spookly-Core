@@ -15,21 +15,22 @@
         <url>spookly.de</url>
     </organization>
 
-
     <modules>
         <module>api</module>
         <module>plugin</module>
+<!--        <module>velocityPlugin</module>-->
+<!--        <module>common</module>-->
     </modules>
 
     <properties>
         <spookly.version>1.0.0-SNAPSHOT</spookly.version>
         <paperapi.version>1.20.1-R0.1-SNAPSHOT</paperapi.version>
-        <lombok.version>1.18.22</lombok.version>
+        <lombok.version>1.18.30</lombok.version>
 
         <!--suppress UnresolvedMavenProperty -->
         <build.number>1</build.number>
-        <maven.compiler.source>20</maven.compiler.source>
-        <maven.compiler.target>20</maven.compiler.target>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -40,8 +41,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <source>16</source>
-                    <target>16</target>
+                    <source>21</source>
+                    <target>21</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -79,5 +80,4 @@
             <url>https://mvnrepository.com/artifact/com.zaxxer/HikariCP/</url>
         </repository>
     </repositories>
-
 </project>

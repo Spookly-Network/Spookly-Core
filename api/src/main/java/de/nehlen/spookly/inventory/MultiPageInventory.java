@@ -1,10 +1,11 @@
 package de.nehlen.spookly.inventory;
 
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.util.Consumer;
 import org.ipvp.canvas.Menu;
 import org.ipvp.canvas.mask.Mask;
 import org.ipvp.canvas.slot.Slot;
+
+import java.util.function.Consumer;
 
 public interface MultiPageInventory extends InventoryWrapper {
     

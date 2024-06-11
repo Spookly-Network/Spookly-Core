@@ -1,6 +1,9 @@
 package de.nehlen.spookly.manager;
 
+import de.nehlen.spookly.Spookly;
 import de.nehlen.spookly.SpooklyCorePlugin;
+import de.nehlen.spookly.player.SpooklyPlayer;
+import de.nehlen.spookly.team.PlayerQuitTeamEvent;
 import de.nehlen.spookly.team.Team;
 import de.nehlen.spookly.team.TeamCreateEvent;
 import de.nehlen.spookly.team.TeamDestroyEvent;
@@ -90,6 +93,15 @@ public class TeamManagerImpl implements de.nehlen.spookly.team.TeamManager {
             }
         });
         this.registeredTeams.removeAll(toRemove);
+    }
+
+    @Override
+    public boolean removePlayerFromTeams(Player player) {
+        this.registeredTeams().stream().filter(team -> team.contains(player)).forEach(team -> {
+            team.removePlayer(player);
+
+        });
+        return true;
     }
 
     @Override

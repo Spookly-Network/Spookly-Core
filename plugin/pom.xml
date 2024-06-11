@@ -61,7 +61,7 @@
         <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
-            <version>1.20.1-R0.1-SNAPSHOT</version>
+            <version>1.20.3-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -76,12 +76,6 @@
             <version>${spookly.version}</version>
             <scope>compile</scope>
         </dependency>
-        <dependency>
-            <groupId>com.zaxxer</groupId>
-            <artifactId>HikariCP</artifactId>
-            <version>5.0.1</version>
-            <scope>compile</scope>
-        </dependency>
 
         <dependency>
             <groupId>de.nehlen</groupId>
@@ -94,8 +88,13 @@
             <groupId>org.ipvp</groupId>
             <artifactId>canvas</artifactId>
             <version>1.7.1.B1-SNAPSHOT</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>5.0.1</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
-
 </project>
