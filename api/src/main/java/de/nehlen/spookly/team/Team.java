@@ -1,5 +1,6 @@
 package de.nehlen.spookly.team;
 
+import de.nehlen.spookly.team.display.TeamDisplay;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.entity.Player;
@@ -39,24 +40,34 @@ public interface Team {
     List<Player> registeredPlayers();
     Integer maxTeamSize();
     void maxTeamSize(Integer maxTeamSize);
+    @Deprecated
     TextColor teamColor();
+    @Deprecated
     void teamColor(TextColor teamColor);
     Map<String, Object> memory();
     Inventory teamInventory();
     void teamInventory(Inventory teamInventory);
     Component teamName();
     void teamName(Component teamName);
+    @Deprecated
     Component prefix();
+    @Deprecated
     void prefix(Component teamName);
     void addToMemory(String key, Object object);
     void removeFromMemory(String key);
     void replaceFromMemory(String key, Object object);
     Integer tabSortId();
 
+    void setTeamDisplay(TeamDisplay display);
+    TeamDisplay getTeamDisplay();
+
     interface Builder {
         Builder maxTeamSize(final int maxTeamSize);
+        @Deprecated
         Builder teamColor(final TextColor teamColor);
+        @Deprecated
         Builder prefix(final Component prefix);
+        Builder display(final TeamDisplay display);
         Builder teamName(final Component teamName);
         Builder addToMemory(String key, Object object);
         Builder tabSortId(final int tabSortId);

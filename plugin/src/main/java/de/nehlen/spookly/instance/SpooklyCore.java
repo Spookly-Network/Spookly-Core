@@ -5,7 +5,7 @@ import de.nehlen.spookly.SpooklyCorePlugin;
 import de.nehlen.spookly.SpooklyServer;
 import de.nehlen.spookly.configuration.Config;
 import de.nehlen.spookly.configuration.ConfigurationWrapper;
-import de.nehlen.spookly.database.Connection;
+import de.nehlen.spookly.database.DatabaseConnection;
 import de.nehlen.spookly.events.EventExecuter;
 import de.nehlen.spookly.phase.GamePhaseManager;
 import de.nehlen.spookly.placeholder.PlaceholderManager;
@@ -14,9 +14,12 @@ import de.nehlen.spookly.player.SpooklyPlayer;
 import de.nehlen.spookly.punishment.PunishmentImpl;
 import de.nehlen.spookly.punishments.Punishment;
 import de.nehlen.spookly.team.Team;
+import de.nehlen.spookly.team.TeamDisplayImpl;
 import de.nehlen.spookly.team.TeamImpl;
 import de.nehlen.spookly.team.TeamManager;
-import org.bukkit.Bukkit;
+import de.nehlen.spookly.team.display.TeamDisplay;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -24,6 +27,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 public class SpooklyCore implements SpooklyServer {
 
@@ -32,13 +36,15 @@ public class SpooklyCore implements SpooklyServer {
     }
 
     @Override
-    public SpooklyOfflinePlayer getOfflinePlayer(@NotNull String name) {
-        return SpooklyCorePlugin.getInstance().getPlayerSchema().getOfflinePlayer(name);
+    public void getOfflinePlayer(@NotNull String name, Consumer<SpooklyOfflinePlayer> callback) {
+        SpooklyCorePlugin.getInstance().getPlayerManager().findOfflinePlayer(name, callback);
+//        return SpooklyCorePlugin.getInstance().getPlayerSchema().getOfflinePlayer(name);
     }
 
     @Override
-    public SpooklyOfflinePlayer getOfflinePlayer(@NotNull UUID uuid) {
-        return SpooklyCorePlugin.getInstance().getPlayerSchema().getOfflinePlayer(uuid);
+    public void getOfflinePlayer(@NotNull UUID uuid, Consumer<SpooklyOfflinePlayer> callback) {
+        SpooklyCorePlugin.getInstance().getPlayerManager().findOfflinePlayer(uuid, callback);
+//        return SpooklyCorePlugin.getInstance().getPlayerSchema().getOfflinePlayer(uuid);
     }
 
     @Override
@@ -46,8 +52,7 @@ public class SpooklyCore implements SpooklyServer {
         if(SpooklyCorePlugin.getInstance().getPlayerManager().getRegisteredOnlinePlayers().containsKey(player.getUniqueId())) {
             return SpooklyCorePlugin.getInstance().getPlayerManager().getRegisteredOnlinePlayers().get(player.getUniqueId());
         }
-
-        return SpooklyCorePlugin.getInstance().getPlayerSchema().getPlayer(player);
+        return null;
     }
 
     @Override
@@ -55,8 +60,7 @@ public class SpooklyCore implements SpooklyServer {
         if(SpooklyCorePlugin.getInstance().getPlayerManager().getRegisteredOnlinePlayers().containsKey(uuid)) {
             return SpooklyCorePlugin.getInstance().getPlayerManager().getRegisteredOnlinePlayers().get(uuid);
         }
-
-        return SpooklyCorePlugin.getInstance().getPlayerSchema().getPlayer(Bukkit.getPlayer(uuid));
+        return null;
     }
 
     @Override
@@ -94,13 +98,19 @@ public class SpooklyCore implements SpooklyServer {
     }
 
     @Override
+    public TeamDisplay createTeamDisplay(Component icon, Component prefix, TextColor color) {
+        return new TeamDisplayImpl(icon, prefix, color);
+    }
+
+    @Override
     public ConfigurationWrapper createConfiguration(File file) {
         return new Config(file);
     }
 
     @Override
-    public Connection getConnection() {
-        return SpooklyCorePlugin.getInstance().getConnection();
+    public DatabaseConnection getConnection() {
+        return SpooklyCorePlugin.getInstance().getMongoDatabaseConfiguration();
+//        return SpooklyCorePlugin.getInstance().getConnection();
     }
 
     @Override

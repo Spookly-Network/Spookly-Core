@@ -1,6 +1,7 @@
 package de.nehlen.spookly.players;
 
 import de.nehlen.spookly.SpooklyCorePlugin;
+import de.nehlen.spookly.database.DatabaseComponentCodec;
 import de.nehlen.spookly.player.SpooklyPlayer;
 import de.nehlen.spookly.punishments.PunishReason;
 import de.nehlen.spookly.punishments.Punishment;
@@ -13,11 +14,10 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Accessors(fluent = true, chain = false)
 public class SpooklyPlayerImpl extends SpooklyOfflinePlayerImpl implements SpooklyPlayer {
@@ -26,10 +26,10 @@ public class SpooklyPlayerImpl extends SpooklyOfflinePlayerImpl implements Spook
     @Getter private Component prefix;
     private Integer tabSortId;
     @Getter private TextColor nameColor;
-    @Getter @Setter private List<Punishment> activePunishments;
+    @Setter @Getter private List<Punishment> activePunishments;
 
     protected SpooklyPlayerImpl(Player player, String texture, Integer points, Instant lastPlayed, Instant firstPlayed) {
-        super(player.getUniqueId(), player.getName(), texture, points, lastPlayed, firstPlayed);
+        super(player.getUniqueId(), player.getName(), texture, points, lastPlayed, firstPlayed, new ArrayList<>(), new HashMap<>());
         this.player = player;
         this.activePunishments = new ArrayList<>();
         this.resetNameTag();

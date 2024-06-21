@@ -10,6 +10,6 @@ public class PlaceholderContext {
     private PlaceholderType type;
 
     public enum PlaceholderType {
-        CHAT, SCOREBOARD, TAB, ALL
+        CHAT, SCOREBOARD, TAB, BOSSBAR, ALL
     }
 }
