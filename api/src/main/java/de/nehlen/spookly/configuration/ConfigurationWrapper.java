@@ -1,5 +1,6 @@
 package de.nehlen.spookly.configuration;
 
+import net.kyori.adventure.text.Component;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -94,7 +95,6 @@ public interface ConfigurationWrapper {
      * @return the Location value at the specified path, or 0,0,0 if no value exists at the path or the value is not a location
      */
     Location getLocation(String path);
-
 
     /**
      * Gets the Color value at the specified path.

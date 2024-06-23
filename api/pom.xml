@@ -21,7 +21,7 @@
         <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
-            <version>1.20.1-R0.1-SNAPSHOT</version>
+            <version>${paperapi.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -33,13 +33,14 @@
         <dependency>
             <groupId>org.ipvp</groupId>
             <artifactId>canvas</artifactId>
-            <version>1.7.1.B1-SNAPSHOT</version>
+            <version>1.7.1</version>
             <scope>compile</scope>
         </dependency>
+
         <dependency>
-            <groupId>com.zaxxer</groupId>
-            <artifactId>HikariCP</artifactId>
-            <version>5.0.1</version>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongodb-driver-reactivestreams</artifactId>
+            <version>${mongodb-driver.version}</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

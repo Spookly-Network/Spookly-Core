@@ -1,0 +1,22 @@
+package de.nehlen.spookly.player;
+
+import org.bukkit.event.HandlerList;
+import org.jetbrains.annotations.NotNull;
+
+public class PlayerUnregisterEvent extends SpooklyPlayerEvent{
+    private static final HandlerList handlers = new HandlerList();
+
+    public PlayerUnregisterEvent(@NotNull final SpooklyPlayer spooklyPlayer) {
+        super(spooklyPlayer);
+    }
+
+    public static HandlerList getHandlerList()
+    {
+        return handlers;
+    }
+
+    @Override
+    public @NotNull HandlerList getHandlers() {
+        return handlers;
+    }
+}

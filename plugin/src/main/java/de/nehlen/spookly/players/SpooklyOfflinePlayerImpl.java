@@ -1,25 +1,31 @@
 package de.nehlen.spookly.players;
 
+import com.mongodb.client.result.UpdateResult;
 import de.nehlen.spookly.SpooklyCorePlugin;
+import de.nehlen.spookly.database.DatabaseComponentCodec;
+import de.nehlen.spookly.database.subscriber.VoidSubscriber;
 import de.nehlen.spookly.player.PlayerPointsChangeEvent;
 import de.nehlen.spookly.player.SpooklyOfflinePlayer;
 import de.nehlen.spookly.player.SpooklyPlayer;
 import de.nehlen.spookly.punishment.PunishmentImpl;
 import de.nehlen.spookly.punishments.Punishment;
 import de.nehlen.spookly.punishments.PunishmentType;
-import lombok.AllArgsConstructor;
+import org.bson.Document;
+import org.bson.codecs.pojo.annotations.BsonId;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.time.Instant;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
-@AllArgsConstructor
-//TODO add builder and protect constructor
+import static com.mongodb.client.model.Filters.eq;
+
 public class SpooklyOfflinePlayerImpl implements SpooklyOfflinePlayer {
 
+    @BsonId
     private final UUID uuid;
     private String name;
     private String texture;
@@ -28,9 +34,18 @@ public class SpooklyOfflinePlayerImpl implements SpooklyOfflinePlayer {
     private Instant lastLogin;
     private final Instant firstLogin;
 
-    public SpooklyOfflinePlayerImpl() {
-        this.uuid = UUID.randomUUID();
-        this.firstLogin = Instant.now();
+    private List<Punishment> punishments;
+    private Map<String, Document> components;
+
+    protected SpooklyOfflinePlayerImpl(UUID uuid, String name, String texture, Integer points, Instant lastLogin, Instant firstLogin, List<Punishment> punishments, Map<String, Document> components) {
+        this.uuid = uuid;
+        this.name = name;
+        this.texture = texture;
+        this.points = points;
+        this.lastLogin = lastLogin;
+        this.firstLogin = firstLogin;
+        this.punishments = punishments;
+        this.components = components;
     }
 
     @Override
@@ -45,7 +60,11 @@ public class SpooklyOfflinePlayerImpl implements SpooklyOfflinePlayer {
 
     @Override
     public void name(String name) {
-        SpooklyCorePlugin.getInstance().getPlayerSchema().setPlayerName(this, name);
+        Document replacement = new Document("name", name);
+        SpooklyCorePlugin.getInstance().getPlayerManager().getCollection()
+                .updateOne(eq("uuid", uniqueId()), replacement)
+                .subscribe(new VoidSubscriber());
+//        SpooklyCorePlugin.getInstance().getPlayerSchema().setPlayerName(this, name);
     }
 
     @Override
@@ -55,7 +74,11 @@ public class SpooklyOfflinePlayerImpl implements SpooklyOfflinePlayer {
 
     @Override
     public void points(Integer points) {
-        SpooklyCorePlugin.getInstance().getPlayerSchema().setPlayerPoints(this, points);
+        Document replacement = new Document("points", points);
+        SpooklyCorePlugin.getInstance().getPlayerManager().getCollection()
+                .updateOne(eq("uuid", uniqueId()), replacement)
+                .subscribe(new VoidSubscriber());
+//        SpooklyCorePlugin.getInstance().getPlayerSchema().setPlayerPoints(this, points);
         this.points = points;
 
         if (this instanceof SpooklyPlayer) {
@@ -69,6 +92,13 @@ public class SpooklyOfflinePlayerImpl implements SpooklyOfflinePlayer {
         points(points + points());
     }
 
+    /**
+     * @param amount
+     * @param unit
+     * @param reason
+     * @param issuer
+     * @deprecated use {@link #addPunishment(Punishment)} instead
+     */
     @Override
     public void ban(Integer amount, TimeUnit unit, String reason, SpooklyPlayer issuer) {
         Instant until = Instant.now();
@@ -84,12 +114,7 @@ public class SpooklyOfflinePlayerImpl implements SpooklyOfflinePlayer {
                 .setReason(reason)
                 .build();
 
-        SpooklyCorePlugin.getInstance().getPunishmentSchema().addPunishment(punishment);
-
-        Player player = Bukkit.getPlayer(this.uniqueId());
-        if (player != null) {
-            player.kick();
-        }
+        addPunishment(punishment);
     }
 
     @Override
@@ -99,7 +124,11 @@ public class SpooklyOfflinePlayerImpl implements SpooklyOfflinePlayer {
 
     @Override
     public void textureUrl(String textureUrl) {
-        SpooklyCorePlugin.getInstance().getPlayerSchema().setPlayerTexture(this, textureUrl);
+        Document replacement = new Document("texture", points);
+        SpooklyCorePlugin.getInstance().getPlayerManager().getCollection()
+                .updateOne(eq("uuid", uniqueId()), replacement)
+                .subscribe(new VoidSubscriber());
+//        SpooklyCorePlugin.getInstance().getPlayerSchema().setPlayerTexture(this, textureUrl);
     }
 
     @Override
@@ -114,11 +143,173 @@ public class SpooklyOfflinePlayerImpl implements SpooklyOfflinePlayer {
 
     @Override
     public void lastPlayed(Instant lastPlayed) {
-        SpooklyCorePlugin.getInstance().getPlayerSchema().setPlayerLastLogin(this, lastPlayed);
+        Document replacement = new Document("lastPlayed", lastPlayed);
+        SpooklyCorePlugin.getInstance().getPlayerManager().getCollection()
+                .updateOne(eq("uuid", uniqueId()), replacement)
+                .subscribe(new VoidSubscriber());
+
+//        SpooklyCorePlugin.getInstance().getPlayerSchema().setPlayerLastLogin(this, lastPlayed);
     }
 
     @Override
     public void addPunishment(Punishment punishment) {
-        SpooklyCorePlugin.getInstance().getPunishmentSchema().addPunishment(punishment);
+        this.punishments.add(punishment);
+        this.save();
+    }
+
+    @Override
+    public void removePunishment(Punishment punishment) {
+        this.punishments.remove(punishment);
+    }
+
+    @Override
+    public List<Punishment> getPunishments() {
+        return this.punishments;
+    }
+
+    @Override
+    @Nullable
+    public <T> T getDatabaseComponent(@NotNull String key, @NotNull DatabaseComponentCodec<T> codec) {
+        Document document = components.get(key);
+        if (document == null) {
+            return null;
+        }
+        return codec.decode(document);
+    }
+
+    @Override
+    public <T> void addDatabaseComponent(@NotNull String key, @NotNull T databaseComponent, @NotNull DatabaseComponentCodec<T> codec) {
+        Document document = codec.encode(databaseComponent);
+        components.put(key, document);
+    }
+
+    @Override
+    public <T> void removeDatabaseComponent(@NotNull String key) {
+        this.components.remove(key);
+    }
+
+    @Override
+    public <T> void replaceDatabaseComponent(@NotNull String key, @NotNull T databaseComponent, @NotNull DatabaseComponentCodec<T> codec) {
+        this.components.replace(key, codec.encode(databaseComponent));
+    }
+
+    @Override
+    public Map<String, Document> getRawComponents() {
+        return components;
+    }
+
+    @Override
+    public Boolean hasDatabaseComponent(@NotNull String key) {
+        return components.containsKey(key);
+    }
+
+
+    //Begin database stuff
+    @Override
+    public void save() {
+        Document document = playerToDocument();
+        SpooklyCorePlugin.getInstance().getPlayerManager().getCollection()
+                .replaceOne(eq("uuid", this.uniqueId()), document)
+                .subscribe(new VoidSubscriber<UpdateResult>());
+    }
+
+    protected Document playerToDocument() {
+        Document doc = new Document("uuid", this.uniqueId())
+                .append("name", this.name())
+                .append("texture", this.textureUrl())
+                .append("points", this.points())
+                .append("lastPlayed", this.lastPlayed())
+                .append("firstPlayed", this.firstPlayed())
+                .append("punishments", this.getPunishments().stream().map(punishment ->
+                        new Document("uuid", punishment.getUniqueId())
+                                .append("type", punishment.getType())
+                                .append("expiry", punishment.getExpiry())
+                                .append("reason", punishment.getReason())
+                                .append("creator", punishment.getCreator())
+                                .append("createdAt", punishment.getCreationTime())
+                                .append("updatedAt", punishment.getLastUpdate())
+                ).toList())
+                .append("components", this.getRawComponents());
+//        for (var entry : getRawComponents().entrySet()) {
+//            doc.append("components." + entry.getKey(), entry.getValue());
+//        }
+        return doc;
+    }
+
+    /*
+     * Begin builder
+     */
+    public static SpooklyOfflinePlayerBuilder builder(UUID uuid) {
+        return new SpooklyOfflinePlayerBuilder(uuid);
+    }
+
+    public static SpooklyOfflinePlayerBuilder of(Player player) {
+        final String playerTexture = player.getPlayerProfile().getProperties().stream()
+                .filter(item -> item.getName().equals("textures"))
+                .toList().getFirst().getValue();
+
+        return new SpooklyOfflinePlayerBuilder(player.getUniqueId())
+                .name(player.getName())
+                .texture(playerTexture);
+    }
+
+    public static class SpooklyOfflinePlayerBuilder {
+
+        private final UUID uuid;
+        private String texture = "";
+        private String name = "";
+        private Integer points = 0;
+        private Instant lastLogin = Instant.now();
+        private Instant firstLogin = Instant.now();
+        private List<Punishment> punishments = new ArrayList<>();
+        private Map<String, Document> components = new HashMap<>();
+
+        protected SpooklyOfflinePlayerBuilder(UUID uuid) {
+            this.uuid = uuid;
+        }
+
+        public SpooklyOfflinePlayerBuilder texture(String texture) {
+            this.texture = texture;
+            return this;
+        }
+
+        public SpooklyOfflinePlayerBuilder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public SpooklyOfflinePlayerBuilder points(Integer points) {
+            this.points = points;
+            return this;
+        }
+
+        public SpooklyOfflinePlayerBuilder lastPlayed(Instant lastPlayed) {
+            this.lastLogin = lastPlayed;
+            return this;
+        }
+
+        public SpooklyOfflinePlayerBuilder firstPlayed(Instant firstPlayed) {
+            this.firstLogin = firstPlayed;
+            return this;
+        }
+
+        public SpooklyOfflinePlayerBuilder punishments(List<Punishment> punishments) {
+            this.punishments.addAll(punishments);
+            return this;
+        }
+
+        public SpooklyOfflinePlayerBuilder components(Map<String, Document> components) {
+            this.components.putAll(components);
+            return this;
+        }
+
+        public SpooklyOfflinePlayerBuilder component(String key, Document component) {
+            this.components.put(key, component);
+            return this;
+        }
+
+        public SpooklyOfflinePlayer build() {
+            return new SpooklyOfflinePlayerImpl(uuid, name, texture, points, lastLogin, firstLogin, punishments, components);
+        }
     }
 }

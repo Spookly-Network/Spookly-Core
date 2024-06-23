@@ -45,7 +45,7 @@ public class TeamManagerImpl implements de.nehlen.spookly.team.TeamManager {
 
     @Override
     public Team registerPlayerToLowestTeam(Player player) {
-        Team lowest = this.registeredTeams().get(0);
+        Team lowest = this.registeredTeams().getFirst();
         if (this.registeredTeams().size() > 1) {
             for (int i = 1; i != this.registeredTeams().size(); i++) {
                 if (this.registeredTeams().get(i).registeredPlayers().size() < lowest

@@ -3,6 +3,7 @@ package de.nehlen.spookly.team;
 import de.nehlen.spookly.Spookly;
 import de.nehlen.spookly.SpooklyCorePlugin;
 import de.nehlen.spookly.player.SpooklyPlayer;
+import de.nehlen.spookly.team.display.TeamDisplay;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -13,7 +14,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
 import java.util.*;
-import java.util.function.Consumer;
 
 @Getter
 @Accessors(fluent = true, chain = false)
@@ -22,24 +22,23 @@ public class TeamImpl implements Team {
     private final UUID uuid;
     private final List<Player> registeredPlayers;
     @Setter private Integer maxTeamSize;
-    @Setter private TextColor teamColor;
     private Map<String, Object> memory;
     @Setter private Inventory teamInventory = Bukkit.createInventory(null, 27, Component.text(""));
     @Setter private Component teamName;
-    @Setter private Component prefix;
     @Getter private Integer tabSortId;
+
+    private TeamDisplay display;
 
     protected final TeamManager teamManager;
 
-    protected TeamImpl(Integer maxTeamSize, TextColor teamColor, Component prefix, Component teamName, Integer tabSortId, Map<String, Object> memory) {
+    protected TeamImpl(Integer maxTeamSize, Component teamName, Integer tabSortId, TeamDisplay teamDisplayImpl, Map<String, Object> memory) {
         this.uuid = UUID.randomUUID();
 
         this.maxTeamSize = maxTeamSize;
-        this.teamColor = teamColor;
-        this.prefix = prefix;
         this.teamName = teamName;
         this.memory = memory;
         this.tabSortId = tabSortId;
+        this.display = teamDisplayImpl;
 
         this.registeredPlayers = new ArrayList<>();
         this.teamManager = Spookly.getTeamManager();
@@ -103,17 +102,52 @@ public class TeamImpl implements Team {
         this.memory.replace(key, object);
     }
 
+    @Override
+    public void setTeamDisplay(TeamDisplay display) {
+        this.display = display;
+    }
+
+    @Override
+    public TeamDisplay getTeamDisplay() {
+        return this.display;
+    }
+
+    //Deprecated just for compatibility
+    @Override
+    @Deprecated
+    public TextColor teamColor() {
+        return display.getColor();
+    }
+
+    @Override
+    @Deprecated
+    public void teamColor(TextColor teamColor) {
+        display.setColor(teamColor);
+    }
+
+    @Override
+    @Deprecated
+    public Component prefix() {
+        return display.getPrefix();
+    }
+
+    @Override
+    @Deprecated
+    public void prefix(Component teamName) {
+        display.setPrefix(teamName);
+    }
+
+    //Builder
     public static TeamBuilder builder() {
         return new TeamBuilder();
     }
 
     public static class TeamBuilder implements Team.Builder {
         private Integer maxTeamSize;
-        private TextColor teamColor;
-        private Component prefix;
         private Component teamName;
         private Integer tabSortId = 0;
         private Map<String, Object> memory = new HashMap<>();
+        private TeamDisplay teamDisplayImpl = new TeamDisplayImpl();
 
         protected TeamBuilder() {
         }
@@ -123,15 +157,23 @@ public class TeamImpl implements Team {
             return this;
         }
 
+        @Deprecated
         public TeamBuilder teamColor(final TextColor teamColor) {
-            this.teamColor = teamColor;
+            this.teamDisplayImpl.setColor(teamColor);
             return this;
         }
 
+        @Deprecated
         public TeamBuilder prefix(final Component prefix) {
-            this.prefix = prefix;
+            this.teamDisplayImpl.setPrefix(prefix);
             return this;
         }
+
+        public TeamBuilder display(final TeamDisplay display) {
+            this.teamDisplayImpl = display;
+            return this;
+        }
+
 
         public TeamBuilder teamName(final Component teamName) {
             this.teamName = teamName;
@@ -149,7 +191,7 @@ public class TeamImpl implements Team {
         }
 
         public Team build() {
-            return new TeamImpl(maxTeamSize, teamColor, prefix, teamName, tabSortId, memory);
+            return new TeamImpl(maxTeamSize, teamName, tabSortId, teamDisplayImpl, memory);
         }
 
     }

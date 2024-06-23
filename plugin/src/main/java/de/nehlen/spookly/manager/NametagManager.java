@@ -55,7 +55,7 @@ public class NametagManager {
             team.prefix(prefix);
             team.addEntries(onlinePlayer.toPlayer().getName());
         } else {
-            Team team = prefixTeam.get(0);
+            Team team = prefixTeam.getFirst();
             team.addEntries(onlinePlayer.toPlayer().getName());
         }
     }

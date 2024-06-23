@@ -3,28 +3,34 @@ package de.nehlen.spookly.punishment;
 import de.nehlen.spookly.player.SpooklyOfflinePlayer;
 import de.nehlen.spookly.punishments.Punishment;
 import de.nehlen.spookly.punishments.PunishmentType;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import org.bson.codecs.pojo.annotations.BsonId;
+import org.bson.codecs.pojo.annotations.BsonIgnore;
+import org.bson.codecs.pojo.annotations.BsonProperty;
 
 import java.time.Instant;
-import java.time.ZoneId;
-import java.time.temporal.TemporalAccessor;
 import java.util.UUID;
 
 @Getter
 public class PunishmentImpl implements Punishment {
 
+    @BsonId @BsonProperty("uuid")
     private final UUID uniqueId;
+    @BsonIgnore
     private final UUID playerUniqueId;
     private final PunishmentType type;
-    @Setter private Instant expiry;
+    @Setter
+    private Instant expiry;
     private final String reason;
 
     private final UUID creator;
-    @Setter private UUID lastUpdater;
+    @BsonProperty("last_updater_uuid") @Setter
+    private UUID lastUpdater;
+    @BsonProperty("created_at")
     private Instant creationTime;
-    @Setter private Instant lastUpdate;
+    @BsonProperty("last_updated_at") @Setter
+    private Instant lastUpdate;
 
     protected PunishmentImpl(SpooklyOfflinePlayer target, SpooklyOfflinePlayer creator, PunishmentType type, Instant expiry, String reason) {
         this.uniqueId = UUID.randomUUID();
@@ -39,7 +45,7 @@ public class PunishmentImpl implements Punishment {
         this.lastUpdate = Instant.now();
     }
 
-    protected PunishmentImpl(UUID uniqueId, UUID playerUniqueId, PunishmentType type, Instant expiry, String reason, UUID creator, UUID lastUpdater, Instant creationTime, Instant lastUpdate) {
+    public PunishmentImpl(UUID uniqueId, UUID playerUniqueId, PunishmentType type, Instant expiry, String reason, UUID creator, UUID lastUpdater, Instant creationTime, Instant lastUpdate) {
         this.uniqueId = uniqueId;
         this.playerUniqueId = playerUniqueId;
         this.type = type;

@@ -1,7 +1,17 @@
 package de.nehlen.spookly.inventory;
 
+/**
+ * Enum representing the result of handling an item interaction in the Spookly system.
+ */
 public enum HandleResult {
 
-    DENY_GRABBING, ALLOW_GRABBING
+    /**
+     * Denies grabbing the item.
+     */
+    DENY_GRABBING,
 
+    /**
+     * Allows grabbing the item.
+     */
+    ALLOW_GRABBING
 }

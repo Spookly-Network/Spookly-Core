@@ -15,6 +15,7 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 public final class Spookly {
     private static SpooklyServer server;
@@ -36,12 +37,12 @@ public final class Spookly {
         Bukkit.getLogger().info("Spookly-Core initialized.");
     }
 
-    public static SpooklyOfflinePlayer getOfflinePlayer(@Nonnull String name) {
-        return server.getOfflinePlayer(name);
+    public static void getOfflinePlayer(@Nonnull String name, Consumer<SpooklyOfflinePlayer> consumer) {
+        server.getOfflinePlayer(name, consumer);
     }
 
-    public static SpooklyOfflinePlayer getOfflinePlayer(@Nonnull UUID uuid) {
-        return server.getOfflinePlayer(uuid);
+    public static void getOfflinePlayer(@Nonnull UUID uuid, Consumer<SpooklyOfflinePlayer> consumer) {
+        server.getOfflinePlayer(uuid, consumer);
     }
 
     public static SpooklyPlayer getPlayer(@Nonnull Player player) {
