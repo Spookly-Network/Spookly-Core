@@ -34,7 +34,7 @@ To use Spookly-Core-API in your project, add the following repository and depend
 The API provides various interfaces to interact with different components of the Spookly system. Here are some examples of how to use the API:
 ### Player Management
 ```java
-SpooklyServer server = // obtain SpooklyServer instance
+SpooklyServer server = Spookly.getServer();
 UUID playerUUID = // player's UUID
 
 server.getOfflinePlayer(playerUUID, offlinePlayer -> {
