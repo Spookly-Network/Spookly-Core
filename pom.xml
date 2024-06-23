@@ -37,6 +37,13 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <distributionManagement>
+        <repository>
+            <id>spookly-repository-snapshots</id>
+            <url>https://mvn.spookly.net/snapshots</url>
+        </repository>
+    </distributionManagement>
+
     <build>
         <plugins>
             <plugin>

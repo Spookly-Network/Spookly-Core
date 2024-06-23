@@ -33,7 +33,7 @@
         <dependency>
             <groupId>org.ipvp</groupId>
             <artifactId>canvas</artifactId>
-            <version>1.7.1.B1-SNAPSHOT</version>
+            <version>1.7.1</version>
             <scope>compile</scope>
         </dependency>
 
