@@ -1,9 +1,9 @@
 package de.spookly.punishments;
 
+import java.util.concurrent.TimeUnit;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
-import java.util.concurrent.TimeUnit;
 
 @AllArgsConstructor
 @Getter

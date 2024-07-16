@@ -1,12 +1,12 @@
 package de.spookly.database.codec;
 
+import java.time.Instant;
+
 import org.bson.BsonReader;
 import org.bson.BsonWriter;
 import org.bson.codecs.Codec;
 import org.bson.codecs.DecoderContext;
 import org.bson.codecs.EncoderContext;
-
-import java.time.Instant;
 
 public class InstantCodec implements Codec<Instant> {
     @Override

@@ -1,16 +1,17 @@
 package de.spookly.punishment;
 
-import de.spookly.player.SpooklyOfflinePlayer;
-import de.spookly.punishments.Punishment;
-import de.spookly.punishments.PunishmentType;
+import java.time.Instant;
+import java.util.UUID;
+
 import lombok.Getter;
 import lombok.Setter;
 import org.bson.codecs.pojo.annotations.BsonId;
 import org.bson.codecs.pojo.annotations.BsonIgnore;
 import org.bson.codecs.pojo.annotations.BsonProperty;
 
-import java.time.Instant;
-import java.util.UUID;
+import de.spookly.player.SpooklyOfflinePlayer;
+import de.spookly.punishments.Punishment;
+import de.spookly.punishments.PunishmentType;
 
 @Getter
 public class PunishmentImpl implements Punishment {

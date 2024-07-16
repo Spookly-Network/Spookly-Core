@@ -1,6 +1,7 @@
 package de.spookly.database;
 
-import de.spookly.SpooklyCorePlugin;
+import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
+import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
@@ -17,8 +18,7 @@ import org.bson.codecs.jsr310.InstantCodec;
 import org.bson.codecs.pojo.PojoCodecProvider;
 import org.jetbrains.annotations.Nullable;
 
-import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
-import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
+import de.spookly.SpooklyCorePlugin;
 
 public class MongoDatabaseConfiguration implements DatabaseConnection {
 

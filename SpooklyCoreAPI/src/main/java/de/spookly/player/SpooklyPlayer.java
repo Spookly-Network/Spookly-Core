@@ -1,14 +1,15 @@
 package de.spookly.player;
 
-import de.spookly.punishments.PunishReason;
-import de.spookly.punishments.Punishment;
+import java.util.List;
 
 import io.papermc.paper.chat.ChatRenderer;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
-import org.bukkit.entity.Player;
 
-import java.util.List;
+import de.spookly.punishments.PunishReason;
+import de.spookly.punishments.Punishment;
+
+import org.bukkit.entity.Player;
 
 /**
  * Interface representing an online player in the Spookly system, extending SpooklyOfflinePlayer.

@@ -1,7 +1,8 @@
 package de.spookly.player;
 
-import org.bukkit.event.Event;
 import org.jetbrains.annotations.NotNull;
+
+import org.bukkit.event.Event;
 
 public abstract class SpooklyPlayerEvent extends Event {
     protected SpooklyPlayer player;

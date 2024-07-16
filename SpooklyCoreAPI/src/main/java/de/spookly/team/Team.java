@@ -1,14 +1,16 @@
 package de.spookly.team;
 
-import de.spookly.team.display.TeamDisplay;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.TextColor;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
-
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextColor;
+
+import de.spookly.team.display.TeamDisplay;
+
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 
 /**
  * Interface representing a team in the Spookly system.

@@ -1,11 +1,12 @@
 package de.spookly.inventory;
 
-import org.bukkit.inventory.ItemStack;
+import java.util.function.Consumer;
+
 import org.ipvp.canvas.Menu;
 import org.ipvp.canvas.mask.Mask;
 import org.ipvp.canvas.slot.Slot;
 
-import java.util.function.Consumer;
+import org.bukkit.inventory.ItemStack;
 
 /**
  * Interface representing a multi-page inventory in the Spookly system.

@@ -1,21 +1,21 @@
 package de.spookly.manager;
 
-import de.spookly.SpooklyCorePlugin;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.UUID;
 
+import lombok.Getter;
+import lombok.experimental.Accessors;
+
+import de.spookly.SpooklyCorePlugin;
 import de.spookly.team.Team;
 import de.spookly.team.TeamCreateEvent;
 import de.spookly.team.TeamDestroyEvent;
 import de.spookly.team.TeamManager;
 
-import lombok.Getter;
-import lombok.experimental.Accessors;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
 
 @Getter
 @Accessors(fluent = true, chain = false)

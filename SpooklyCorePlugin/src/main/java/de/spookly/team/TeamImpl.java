@@ -1,19 +1,21 @@
 package de.spookly.team;
 
-import de.spookly.Spookly;
-import de.spookly.SpooklyCorePlugin;
-import de.spookly.player.SpooklyPlayer;
-import de.spookly.team.display.TeamDisplay;
+import java.util.*;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
+
+import de.spookly.Spookly;
+import de.spookly.SpooklyCorePlugin;
+import de.spookly.player.SpooklyPlayer;
+import de.spookly.team.display.TeamDisplay;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-
-import java.util.*;
 
 @Getter
 @Accessors(fluent = true, chain = false)

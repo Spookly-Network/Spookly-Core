@@ -1,5 +1,15 @@
 package de.spookly.instance;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+import java.util.function.Consumer;
+
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextColor;
+import org.jetbrains.annotations.NotNull;
+
 import de.spookly.Spookly;
 import de.spookly.SpooklyCorePlugin;
 import de.spookly.SpooklyServer;
@@ -18,16 +28,8 @@ import de.spookly.team.TeamDisplayImpl;
 import de.spookly.team.TeamImpl;
 import de.spookly.team.TeamManager;
 import de.spookly.team.display.TeamDisplay;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.TextColor;
-import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-import java.util.function.Consumer;
+import org.bukkit.entity.Player;
 
 public class SpooklyCore implements SpooklyServer {
 

@@ -1,6 +1,10 @@
 package de.spookly.listener;
 
 import com.destroystokyo.paper.event.player.PlayerAdvancementCriterionGrantEvent;
+import io.papermc.paper.event.player.AsyncChatEvent;
+import io.papermc.paper.event.player.PlayerDeepSleepEvent;
+import org.spigotmc.event.player.PlayerSpawnLocationEvent;
+
 import de.spookly.SpooklyCorePlugin;
 import de.spookly.player.PlayerPointsChangeEvent;
 import de.spookly.player.PlayerRegisterEvent;
@@ -8,8 +12,7 @@ import de.spookly.team.PlayerJoinTeamEvent;
 import de.spookly.team.PlayerQuitTeamEvent;
 import de.spookly.team.TeamCreateEvent;
 import de.spookly.team.TeamDestroyEvent;
-import io.papermc.paper.event.player.AsyncChatEvent;
-import io.papermc.paper.event.player.PlayerDeepSleepEvent;
+
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -21,7 +24,6 @@ import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.event.server.ServerListPingEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
-import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
 
 public class Listener implements org.bukkit.event.Listener {

@@ -1,7 +1,8 @@
 package de.spookly.team;
 
-import org.bukkit.event.Event;
 import org.jetbrains.annotations.NotNull;
+
+import org.bukkit.event.Event;
 
 public abstract class TeamEvent extends Event {
     protected Team team;

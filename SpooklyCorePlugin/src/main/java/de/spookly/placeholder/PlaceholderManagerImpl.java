@@ -5,13 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import de.spookly.placeholder.Placeholder;
-import de.spookly.placeholder.PlaceholderContext;
-import de.spookly.placeholder.PlaceholderManager;
-import org.bukkit.entity.Player;
-
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextReplacementConfig;
+
+import org.bukkit.entity.Player;
 
 public class PlaceholderManagerImpl implements PlaceholderManager {
 

@@ -1,6 +1,7 @@
 package de.spookly.placeholder;
 
 import net.kyori.adventure.text.Component;
+
 import org.bukkit.entity.Player;
 
 /**

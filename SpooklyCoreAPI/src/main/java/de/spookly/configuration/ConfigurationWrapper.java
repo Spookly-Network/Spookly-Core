@@ -1,11 +1,11 @@
 package de.spookly.configuration;
 
-import org.bukkit.Color;
-import org.bukkit.Location;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.Set;
+
+import org.bukkit.Color;
+import org.bukkit.Location;
 
 public interface ConfigurationWrapper {
 

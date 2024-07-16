@@ -1,8 +1,9 @@
 package de.spookly.inventory;
 
-import org.bukkit.inventory.ItemStack;
 import org.ipvp.canvas.Menu;
 import org.ipvp.canvas.slot.Slot;
+
+import org.bukkit.inventory.ItemStack;
 
 /**
  * Interface representing a single-page inventory in the Spookly system.

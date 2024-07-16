@@ -6,13 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
-import org.bukkit.entity.Player;
-
-import de.spookly.SpooklyCorePlugin;
-import de.spookly.placeholder.PlaceholderContext;
-import de.spookly.player.SpooklyPlayer;
-import de.spookly.punishments.PunishReason;
-import de.spookly.punishments.Punishment;
 import de.nehlen.spooklycloudnetutils.manager.GroupManager;
 import io.papermc.paper.chat.ChatRenderer;
 import lombok.Getter;
@@ -21,6 +14,14 @@ import lombok.experimental.Accessors;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
+
+import de.spookly.SpooklyCorePlugin;
+import de.spookly.placeholder.PlaceholderContext;
+import de.spookly.player.SpooklyPlayer;
+import de.spookly.punishments.PunishReason;
+import de.spookly.punishments.Punishment;
+
+import org.bukkit.entity.Player;
 
 @Accessors(fluent = true, chain = false)
 public class SpooklyPlayerImpl extends SpooklyOfflinePlayerImpl implements SpooklyPlayer {

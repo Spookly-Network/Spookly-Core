@@ -1,5 +1,16 @@
 package de.spookly;
 
+import java.io.File;
+import java.util.Locale;
+import java.util.ResourceBundle;
+import java.util.TimeZone;
+
+import lombok.Getter;
+import net.kyori.adventure.key.Key;
+import net.kyori.adventure.translation.GlobalTranslator;
+import net.kyori.adventure.translation.TranslationRegistry;
+import net.kyori.adventure.util.UTF8ResourceBundleControl;
+
 import de.spookly.Phase.GamePhaseManagerImpl;
 import de.spookly.configuration.Config;
 import de.spookly.configuration.ConfigurationWrapper;
@@ -15,19 +26,10 @@ import de.spookly.placeholder.PlaceholderManager;
 import de.spookly.placeholder.PlaceholderManagerImpl;
 import de.spookly.plugin.SpooklyPlugin;
 import de.spookly.team.TeamManager;
-import lombok.Getter;
-import net.kyori.adventure.key.Key;
-import net.kyori.adventure.translation.GlobalTranslator;
-import net.kyori.adventure.translation.TranslationRegistry;
-import net.kyori.adventure.util.UTF8ResourceBundleControl;
+
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
-
-import java.io.File;
-import java.util.Locale;
-import java.util.ResourceBundle;
-import java.util.TimeZone;
 
 public class SpooklyCorePlugin extends SpooklyPlugin implements org.bukkit.event.Listener {
 

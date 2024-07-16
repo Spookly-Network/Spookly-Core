@@ -44,4 +44,3 @@ public interface GamePhaseManager {
      */
     void continueToNextPhase() throws GamePhaseLastException;
 }
-

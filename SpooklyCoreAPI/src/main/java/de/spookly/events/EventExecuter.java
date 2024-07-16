@@ -1,7 +1,8 @@
 package de.spookly.events;
 
-import org.bukkit.event.Event;
 import org.jetbrains.annotations.NotNull;
+
+import org.bukkit.event.Event;
 
 /**
  * Interface representing an event executor in the Spookly system.

@@ -1,9 +1,9 @@
 package de.spookly.team;
 
-import org.bukkit.entity.Player;
-
 import java.util.List;
 import java.util.UUID;
+
+import org.bukkit.entity.Player;
 
 /**
  * Interface representing the manager for teams in the Spookly system.

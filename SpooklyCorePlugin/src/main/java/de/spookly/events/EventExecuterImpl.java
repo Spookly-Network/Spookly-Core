@@ -5,11 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.jetbrains.annotations.NotNull;
+
 import de.spookly.SpooklyCorePlugin;
+
 import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
-
-import org.jetbrains.annotations.NotNull;
 
 public class EventExecuterImpl implements EventExecuter {
 

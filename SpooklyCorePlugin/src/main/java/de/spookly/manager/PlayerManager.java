@@ -1,8 +1,21 @@
 package de.spookly.manager;
 
+import static com.mongodb.client.model.Filters.eq;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+import java.util.function.Consumer;
+
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.InsertOneResult;
 import com.mongodb.reactivestreams.client.MongoCollection;
+import lombok.Getter;
+import org.bson.Document;
+import org.bson.conversions.Bson;
+import org.jetbrains.annotations.NotNull;
+
 import de.spookly.Spookly;
 import de.spookly.SpooklyCorePlugin;
 import de.spookly.database.subscriber.LoadPlayerSubscriber;
@@ -14,23 +27,12 @@ import de.spookly.player.SpooklyPlayer;
 import de.spookly.players.SpooklyOfflinePlayerImpl;
 import de.spookly.players.SpooklyPlayerImpl;
 import de.spookly.punishments.Punishment;
-import lombok.Getter;
-import org.bson.Document;
-import org.bson.conversions.Bson;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-import java.util.function.Consumer;
-
-import static com.mongodb.client.model.Filters.eq;
 
 public class PlayerManager {
 

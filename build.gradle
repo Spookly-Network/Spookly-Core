@@ -48,8 +48,8 @@ allprojects {
         java {
             removeUnusedImports()
             importOrder('java', 'javax', '', 'de.spookly', 'net.minecraft', 'org.bukkit')
-            indentWithTabs()
-            trimTrailingWhitespace()
+            indentWithSpaces(4)
+            endWithNewline()
         }
     }
 }

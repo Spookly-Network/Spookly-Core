@@ -1,6 +1,17 @@
 package de.spookly.players;
 
+import static com.mongodb.client.model.Filters.eq;
+
+import java.time.Instant;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
+
 import com.mongodb.client.result.UpdateResult;
+import org.bson.Document;
+import org.bson.codecs.pojo.annotations.BsonId;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import de.spookly.SpooklyCorePlugin;
 import de.spookly.database.DatabaseComponentCodec;
 import de.spookly.database.subscriber.VoidSubscriber;
@@ -10,18 +21,9 @@ import de.spookly.player.SpooklyPlayer;
 import de.spookly.punishment.PunishmentImpl;
 import de.spookly.punishments.Punishment;
 import de.spookly.punishments.PunishmentType;
-import org.bson.Document;
-import org.bson.codecs.pojo.annotations.BsonId;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import java.time.Instant;
-import java.util.*;
-import java.util.concurrent.TimeUnit;
-
-import static com.mongodb.client.model.Filters.eq;
 
 public class SpooklyOfflinePlayerImpl implements SpooklyOfflinePlayer {
 

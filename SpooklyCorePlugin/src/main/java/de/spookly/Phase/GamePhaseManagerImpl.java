@@ -1,15 +1,16 @@
 package de.spookly.Phase;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.NoSuchElementException;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import de.spookly.phase.GamePhase;
 import de.spookly.phase.GamePhaseLastException;
 import de.spookly.phase.GamePhaseManager;
 import de.spookly.phase.GamePhaseNotRegisteredException;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.NoSuchElementException;
 
 public class GamePhaseManagerImpl implements GamePhaseManager {
 

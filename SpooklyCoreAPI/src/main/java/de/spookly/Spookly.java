@@ -1,5 +1,13 @@
 package de.spookly;
 
+import java.util.List;
+import java.util.UUID;
+import java.util.function.Consumer;
+
+import javax.annotation.Nonnull;
+
+import org.jetbrains.annotations.NotNull;
+
 import de.spookly.phase.GamePhaseManager;
 import de.spookly.placeholder.PlaceholderManager;
 import de.spookly.player.SpooklyOfflinePlayer;
@@ -7,14 +15,9 @@ import de.spookly.player.SpooklyPlayer;
 import de.spookly.punishments.Punishment;
 import de.spookly.team.Team;
 import de.spookly.team.TeamManager;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
-
-import javax.annotation.Nonnull;
-import java.util.List;
-import java.util.UUID;
-import java.util.function.Consumer;
 
 public final class Spookly {
     private static SpooklyServer server;

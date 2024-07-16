@@ -1,9 +1,9 @@
 package de.spookly.team;
 
+import lombok.Getter;
+
 import de.spookly.player.SpooklyPlayer;
 import de.spookly.player.SpooklyPlayerEvent;
-
-import lombok.Getter;
 
 import org.bukkit.event.HandlerList;
 

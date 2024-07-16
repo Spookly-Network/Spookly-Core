@@ -2,8 +2,6 @@ package de.spookly.inventory;
 
 import org.bukkit.entity.Player;
 
-import org.bukkit.entity.Player;
-
 /**
  * Interface representing a wrapper for an inventory in the Spookly system.
  */
@@ -21,4 +19,3 @@ public interface InventoryWrapper {
      */
     Player player();
 }
-

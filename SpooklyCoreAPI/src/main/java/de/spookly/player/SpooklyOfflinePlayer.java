@@ -1,17 +1,17 @@
 package de.spookly.player;
 
-import de.spookly.database.DatabaseComponentCodec;
-import de.spookly.punishments.Punishment;
-
-import org.bson.Document;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
 import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
+
+import org.bson.Document;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import de.spookly.database.DatabaseComponentCodec;
+import de.spookly.punishments.Punishment;
 
 /**
  * Interface representing an offline player in the Spookly system.

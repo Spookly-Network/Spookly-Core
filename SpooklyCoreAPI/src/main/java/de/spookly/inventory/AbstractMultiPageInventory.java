@@ -1,10 +1,9 @@
 package de.spookly.inventory;
 
+import java.util.List;
+import java.util.function.Consumer;
+
 import net.kyori.adventure.text.Component;
-import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.ClickType;
-import org.bukkit.event.inventory.InventoryAction;
-import org.bukkit.inventory.ItemStack;
 import org.ipvp.canvas.Menu;
 import org.ipvp.canvas.mask.BinaryMask;
 import org.ipvp.canvas.mask.Mask;
@@ -14,8 +13,10 @@ import org.ipvp.canvas.slot.Slot;
 import org.ipvp.canvas.slot.SlotSettings;
 import org.ipvp.canvas.type.ChestMenu;
 
-import java.util.List;
-import java.util.function.Consumer;
+import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.ClickType;
+import org.bukkit.event.inventory.InventoryAction;
+import org.bukkit.inventory.ItemStack;
 
 public abstract class AbstractMultiPageInventory implements MultiPageInventory {
     private PaginatedMenuBuilder switcherInventoryPages;

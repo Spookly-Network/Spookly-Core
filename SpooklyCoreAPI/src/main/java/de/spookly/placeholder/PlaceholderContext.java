@@ -2,6 +2,7 @@ package de.spookly.placeholder;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
 import org.bukkit.entity.Player;
 
 /**

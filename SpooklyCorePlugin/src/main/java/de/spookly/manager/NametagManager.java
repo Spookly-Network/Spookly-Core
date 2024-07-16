@@ -1,18 +1,20 @@
 package de.spookly.manager;
 
+import java.util.List;
+import java.util.UUID;
+
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+
 import de.spookly.Spookly;
 import de.spookly.SpooklyCorePlugin;
 import de.spookly.player.PlayerRegisterEvent;
 import de.spookly.player.SpooklyPlayer;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.ScoreboardManager;
 import org.bukkit.scoreboard.Team;
-
-import java.util.List;
-import java.util.UUID;
 
 public class NametagManager {
 

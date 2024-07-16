@@ -9,10 +9,10 @@ import org.bukkit.event.Event;
  */
 public interface EventSubscriber<T extends Event> {
 
-     /**
-      * Handles the specified event.
-      *
-      * @param event the event to handle.
-      */
-     void handle(T event);
+    /**
+    * Handles the specified event.
+    *
+    * @param event the event to handle.
+    */
+    void handle(T event);
 }

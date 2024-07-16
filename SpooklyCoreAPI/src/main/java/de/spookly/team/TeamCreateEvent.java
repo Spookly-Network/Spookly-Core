@@ -13,14 +13,12 @@ public class TeamCreateEvent extends TeamEvent implements Cancellable {
     }
 
     @Override
-    public boolean isCancelled()
-    {
+    public boolean isCancelled() {
         return this.cancelled;
     }
 
     @Override
-    public void setCancelled(boolean cancelled)
-    {
+    public void setCancelled(boolean cancelled) {
         this.cancelled = cancelled;
     }
 
@@ -29,8 +27,7 @@ public class TeamCreateEvent extends TeamEvent implements Cancellable {
         return handlers;
     }
 
-    public static HandlerList getHandlerList()
-    {
+    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

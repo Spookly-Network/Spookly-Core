@@ -1,18 +1,19 @@
 package de.spookly.database.subscriber;
 
+import java.time.Instant;
+import java.util.Date;
+import java.util.UUID;
+import java.util.function.Consumer;
+
+import org.bson.Document;
+import org.reactivestreams.Subscriber;
+import org.reactivestreams.Subscription;
+
 import de.spookly.player.SpooklyOfflinePlayer;
 import de.spookly.players.SpooklyOfflinePlayerImpl;
 import de.spookly.punishment.PunishmentImpl;
 import de.spookly.punishments.Punishment;
 import de.spookly.punishments.PunishmentType;
-import org.bson.Document;
-import org.reactivestreams.Subscriber;
-import org.reactivestreams.Subscription;
-
-import java.time.Instant;
-import java.util.Date;
-import java.util.UUID;
-import java.util.function.Consumer;
 
 public class LoadPlayerSubscriber implements Subscriber<Document> {
 
