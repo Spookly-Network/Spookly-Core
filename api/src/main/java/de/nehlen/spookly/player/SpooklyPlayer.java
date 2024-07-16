@@ -2,6 +2,7 @@ package de.nehlen.spookly.player;
 
 import de.nehlen.spookly.punishments.PunishReason;
 import de.nehlen.spookly.punishments.Punishment;
+import io.papermc.paper.chat.ChatRenderer;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.entity.Player;
@@ -41,6 +42,13 @@ public interface SpooklyPlayer extends SpooklyOfflinePlayer {
      * @param sortId the sorting ID for the prefix.
      */
     void prefix(Component prefix, Integer sortId);
+
+    /**
+     * Gets the chat renderer for the player.
+     *
+     * @return the chat renderer.
+     */
+    ChatRenderer getChatRenderer();
 
     /**
      * Gets the tab sorting ID of the player.

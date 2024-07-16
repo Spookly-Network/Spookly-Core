@@ -1,13 +1,14 @@
 package de.nehlen.spookly.placeholder;
 
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.TextReplacementConfig;
-import org.bukkit.entity.Player;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.bukkit.entity.Player;
+
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextReplacementConfig;
 
 public class PlaceholderManagerImpl implements PlaceholderManager {
 
@@ -29,7 +30,8 @@ public class PlaceholderManagerImpl implements PlaceholderManager {
         placeholders.remove(placeholder);
     }
 
-    @Override @Deprecated(forRemoval = true)
+    @Override
+    @Deprecated(forRemoval = true)
     public Component replacePlaceholder(Component input, Player player) {
         for (Map.Entry<String, replaceHandler> entry : placeholders.entrySet()) {
             input = input.replaceText(replace(entry.getKey(), entry.getValue().replace(player)));

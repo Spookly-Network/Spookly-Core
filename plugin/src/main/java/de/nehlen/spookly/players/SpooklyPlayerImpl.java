@@ -1,23 +1,26 @@
 package de.nehlen.spookly.players;
 
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.UUID;
+
+import org.bukkit.entity.Player;
+
 import de.nehlen.spookly.SpooklyCorePlugin;
-import de.nehlen.spookly.database.DatabaseComponentCodec;
+import de.nehlen.spookly.placeholder.PlaceholderContext;
 import de.nehlen.spookly.player.SpooklyPlayer;
 import de.nehlen.spookly.punishments.PunishReason;
 import de.nehlen.spookly.punishments.Punishment;
 import de.nehlen.spooklycloudnetutils.manager.GroupManager;
+import io.papermc.paper.chat.ChatRenderer;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
-import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
-
-import java.time.Instant;
-import java.util.*;
 
 @Accessors(fluent = true, chain = false)
 public class SpooklyPlayerImpl extends SpooklyOfflinePlayerImpl implements SpooklyPlayer {
@@ -43,10 +46,13 @@ public class SpooklyPlayerImpl extends SpooklyOfflinePlayerImpl implements Spook
     @Override
     public void resetNameTag() {
         this.nameColor(TextColor.fromHexString(GroupManager.getGroupColor(this.player)));
-        Component defaultPrefix = Component.empty().color(nameColor())
-                .append(Component.translatable(GroupManager.getGroupPrefix(this.player)).font(Key.key("rangs")).color(NamedTextColor.WHITE))
+        Component defaultPrefix = Component.translatable(GroupManager.getGroupPrefix(this.player))
+                .color(NamedTextColor.WHITE);
+        Component combinedPrefix = Component.empty()
+                .append(defaultPrefix)
                 .append(Component.text(" "));
-        this.prefix(defaultPrefix, GroupManager.getGroupSortId(player) | 0);
+
+        this.prefix(combinedPrefix, GroupManager.getGroupSortId(player) | 0);
     }
 
     @Override
@@ -57,9 +63,22 @@ public class SpooklyPlayerImpl extends SpooklyOfflinePlayerImpl implements Spook
 
     @Override
     public void prefix(Component prefix, Integer sortId) {
-        SpooklyCorePlugin.getInstance().getLogger().info("Setting sortId to " + sortId + " for " + player.getName());
         this.tabSortId = sortId;
         this.prefix(prefix);
+    }
+
+    @Override
+    public ChatRenderer getChatRenderer() {
+        return (source, sourceDisplayName, message, viewer) -> {
+            PlaceholderContext context = new PlaceholderContext(source, PlaceholderContext.PlaceholderType.CHAT);
+
+            return (Component) Component.text()
+                    .append(prefix())
+                    .append(sourceDisplayName.color(nameColor()))
+                    .append(Component.text(" ›› ").color(NamedTextColor.GRAY)) // Separator
+                    .append(SpooklyCorePlugin.getInstance().getPlaceholderManager().replacePlaceholder(message, context))
+                    .build();
+        };
     }
 
     @Override
