@@ -4,10 +4,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>de.nehlen</groupId>
-    <artifactId>Spookly-Core-Plugin</artifactId>
+    <groupId>de.spookly</groupId>
+    <artifactId>SpooklyCore</artifactId>
     <version>${spookly.version}</version>
-    <description>The core-plugin for all plugins on the spookly server network.</description>
+    <description>The core for all spigot/paper based plugins on the spookly server network.</description>
     <url>https://spookly.de</url>
     <packaging>pom</packaging>
     <organization>
@@ -16,8 +16,8 @@
     </organization>
 
     <modules>
-        <module>api</module>
-        <module>plugin</module>
+        <module>SpooklyCoreAPI</module>
+        <module>SpooklyCorePlugin</module>
     </modules>
 
     <properties>
