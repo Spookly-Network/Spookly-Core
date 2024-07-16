@@ -1,0 +1,55 @@
+plugins {
+    id 'java'
+    id 'java-library'
+    id("io.freefair.lombok") version "8.6"
+    // Check for new versions at https://plugins.gradle.org/plugin/io.papermc.paperweight.userdev
+    id "com.diffplug.spotless" version "6.20.0"
+    id("io.papermc.paperweight.userdev") version "1.7.1"
+    id 'maven-publish'
+}
+
+group 'de.spookly'
+version project.version
+
+allprojects {
+    apply plugin: "com.diffplug.spotless"
+    apply plugin: "io.papermc.paperweight.userdev"
+    apply plugin: 'java'
+    apply plugin: 'java-library'
+
+    repositories {
+        mavenCentral()
+        maven {
+            name = "spooklyRepositoryReleases"
+            url = "https://mvn.spookly.net/releases"
+        }
+        maven {
+            name = "spooklyRepositorySnapshots"
+            url = "https://mvn.spookly.net/snapshots"
+        }
+    }
+
+    dependencies {
+        //External API's
+        compileOnly 'org.jetbrains:annotations:' + project.jetbrains_annotations
+        compileOnly 'org.projectlombok:lombok:' + project.lombok_version
+        annotationProcessor 'org.projectlombok:lombok:' + project.lombok_version
+        
+        compileOnly 'org.mongodb:mongodb-driver-reactivestreams:' + project.mongodb_driver_version
+        
+        //Internal API's
+        implementation 'org.ipvp:canvas:1.7.1'
+
+        //NMS / Paper-API
+        paperweight.paperDevBundle(project.paper_version)
+    }
+
+    spotless {
+        java {
+            removeUnusedImports()
+            importOrder('java', 'javax', '', 'de.spookly', 'net.minecraft', 'org.bukkit')
+            indentWithTabs()
+            trimTrailingWhitespace()
+        }
+    }
+}

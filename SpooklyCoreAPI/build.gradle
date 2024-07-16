@@ -1,0 +1,4 @@
+group = 'de.spookly'
+version rootProject.version
+
+dependencies {}

@@ -1,0 +1,9 @@
+group = 'de.spookly'
+version rootProject.version
+
+dependencies {
+    api project(':SpooklyCoreAPI')
+
+    implementation 'de.nehlen:SpooklyCloudNetUtils:' + rootProject.cloud_utils_version
+//    implementation 'org.mongo:mongodb-crypt:' + rootProject.mongodb_crypt_version
+}

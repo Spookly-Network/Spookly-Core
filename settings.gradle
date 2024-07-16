@@ -1,0 +1,13 @@
+pluginManagement {
+	repositories {
+		gradlePluginPortal()
+		maven {
+			name = "Paper"
+			url = "https://repo.papermc.io/repository/maven-public/"
+		}
+	}
+}
+
+rootProject.name = 'SpooklyCore'
+
+include 'SpooklyCoreAPI', 'SpooklyCorePlugin'
