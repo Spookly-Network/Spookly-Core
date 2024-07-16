@@ -8,11 +8,11 @@
     <artifactId>Spookly-Core-Plugin</artifactId>
     <version>${spookly.version}</version>
     <description>The core-plugin for all plugins on the spookly server network.</description>
-    <url>spookly.de</url>
+    <url>https://spookly.de</url>
     <packaging>pom</packaging>
     <organization>
         <name>Spookly</name>
-        <url>spookly.de</url>
+        <url>https://spookly.de</url>
     </organization>
 
     <modules>
@@ -23,7 +23,7 @@
     </modules>
 
     <properties>
-        <spookly.version>1.0.0-SNAPSHOT</spookly.version>
+        <spookly.version>1.1.0-SNAPSHOT</spookly.version>
         <paperapi.version>1.20.1-R0.1-SNAPSHOT</paperapi.version>
         <lombok.version>1.18.30</lombok.version>
 

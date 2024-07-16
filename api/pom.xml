@@ -8,7 +8,7 @@
     <parent>
         <groupId>de.nehlen</groupId>
         <artifactId>Spookly-Core-Plugin</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.1.0-SNAPSHOT</version>
     </parent>
 
     <properties>
@@ -41,7 +41,7 @@
             <groupId>org.mongodb</groupId>
             <artifactId>mongodb-driver-reactivestreams</artifactId>
             <version>${mongodb-driver.version}</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>
