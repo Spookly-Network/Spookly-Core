@@ -18,8 +18,6 @@
     <modules>
         <module>api</module>
         <module>plugin</module>
-<!--        <module>velocityPlugin</module>-->
-<!--        <module>common</module>-->
     </modules>
 
     <properties>
