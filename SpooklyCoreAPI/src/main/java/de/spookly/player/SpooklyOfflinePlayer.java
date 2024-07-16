@@ -4,7 +4,6 @@ import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 
 import org.bson.Document;
 import org.jetbrains.annotations.NotNull;
@@ -59,18 +58,6 @@ public interface SpooklyOfflinePlayer {
      * @param points the points to add.
      */
     void addPoints(Integer points);
-
-    /**
-     * Bans the player for a specified duration.
-     *
-     * @param amount the duration of the ban.
-     * @param unit   the unit of time for the ban duration.
-     * @param reason the reason for the ban.
-     * @param issuer the player issuing the ban.
-     * @deprecated use {@link #addPunishment(Punishment)} instead
-     */
-    @Deprecated(forRemoval = true)
-    void ban(Integer amount, TimeUnit unit, String reason, SpooklyPlayer issuer);
 
     /**
      * Gets the URL of the player's texture.

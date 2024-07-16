@@ -4,7 +4,6 @@ import static com.mongodb.client.model.Filters.eq;
 
 import java.time.Instant;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 import com.mongodb.client.result.UpdateResult;
 import org.bson.Document;
@@ -18,9 +17,7 @@ import de.spookly.database.subscriber.VoidSubscriber;
 import de.spookly.player.PlayerPointsChangeEvent;
 import de.spookly.player.SpooklyOfflinePlayer;
 import de.spookly.player.SpooklyPlayer;
-import de.spookly.punishment.PunishmentImpl;
 import de.spookly.punishments.Punishment;
-import de.spookly.punishments.PunishmentType;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -29,8 +26,8 @@ public class SpooklyOfflinePlayerImpl implements SpooklyOfflinePlayer {
 
     @BsonId
     private final UUID uuid;
-    private String name;
-    private String texture;
+    private final String name;
+    private final String texture;
     private Integer points;
 
     private Instant lastLogin;
@@ -92,31 +89,6 @@ public class SpooklyOfflinePlayerImpl implements SpooklyOfflinePlayer {
     @Override
     public void addPoints(Integer points) {
         points(points + points());
-    }
-
-    /**
-     * @param amount
-     * @param unit
-     * @param reason
-     * @param issuer
-     * @deprecated use {@link #addPunishment(Punishment)} instead
-     */
-    @Override
-    public void ban(Integer amount, TimeUnit unit, String reason, SpooklyPlayer issuer) {
-        Instant until = Instant.now();
-        if (Objects.requireNonNull(unit) == TimeUnit.SECONDS) {
-            until = until.plusSeconds(amount);
-        } else {
-            until = until.plusNanos(unit.toNanos(amount));
-        }
-
-        Punishment punishment = PunishmentImpl.Builder(this, issuer)
-                .setExpiry(until)
-                .setType(PunishmentType.BAN)
-                .setReason(reason)
-                .build();
-
-        addPunishment(punishment);
     }
 
     @Override

@@ -115,7 +115,6 @@ public class SpooklyPlayerImpl extends SpooklyOfflinePlayerImpl implements Spook
         return player.getName();
     }
 
-
     @Override
     public void kick() {
         //TODO implement punishments
