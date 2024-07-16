@@ -1,7 +1,7 @@
 # Spookly Core API
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 ![Maven metadata URL](https://img.shields.io/maven-metadata/v?metadataUrl=https%3A%2F%2Fmvn.spookly.net%2Fsnapshots%2Fde%2Fnehlen%2FSpookly-Core-API%2Fmaven-metadata.xml&versionSuffix=SNAPSHOT&label=development%20version)
-![Discord](https://img.shields.io/discord/900708000900194314)
+[![Discord](https://img.shields.io/discord/900708000900194314)](https://discord.gg/9bpxXyszCb)
 
 
 SpooklyCoreAPI is a comprehensive API for managing various aspects of the Spookly system, including players, teams, game phases, events, and more. This API provides interfaces and their implementations for creating and managing complex game systems in a Minecraft environment.
