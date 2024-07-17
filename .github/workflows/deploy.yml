@@ -1,0 +1,72 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main  # Change this to your default branch
+  pull_request:
+    branches:
+      - main  # Change this to your default branch
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Cache Gradle packages
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: ${{ runner.os }}-gradle
+
+      - name: Build with Gradle
+        run: ./gradlew clean build
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Cache Gradle packages
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: ${{ runner.os }}-gradle
+
+      - name: Publish API Module
+        run: ./gradlew :api:publish
+        env:
+          MAVEN_USERNAME: ${{ secrets.MVN_SERVER_USER }}
+          MAVEN_PASSWORD: ${{ secrets.MVN_SERVER_TOKEN }}
+          MAVEN_REPO_URL: ${{ secrets.MVN_SERVER_URL }}
+
+      - name: Publish Implementation Module
+        run: ./gradlew :impl:publish
+        env:
+          MAVEN_USERNAME: ${{ secrets.MVN_SERVER_USER }}
+          MAVEN_PASSWORD: ${{ secrets.MVN_SERVER_TOKEN }}
+          MAVEN_REPO_URL: ${{ secrets.MVN_SERVER_URL }}
