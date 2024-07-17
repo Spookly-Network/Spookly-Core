@@ -1,4 +1,64 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+}
+
 group = 'de.spookly'
 version rootProject.version
 
-dependencies {}
+java {
+    withSourcesJar()
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(21))
+    }
+}
+
+publishing {
+    setupRepositories(repositories)
+    publications {
+        library(MavenPublication) {
+            pom {
+                addPomMetadataInformation(project, pom)
+            }
+            from components.java
+        }
+    }
+}
+
+void setupRepositories(RepositoryHandler repositories) {
+    //repositories.mavenLocal() // uncomment for testing
+    def ENV = System.getenv()
+    if (ENV.MVN_SERVER_URL) {
+        repositories.maven {
+            url ENV.MVN_SERVER_URL
+            if (ENV.MVN_SERVER_USER) {
+                credentials {
+                    username ENV.MVN_SERVER_USER
+                    password ENV.MVN_SERVER_TOKEN
+                }
+            }
+        }
+    }
+}
+
+def addPomMetadataInformation(Project project, MavenPom pom) {
+    pom.name = project.name
+    pom.url = "https://github.com/Spookly-Network/Spookly-Core/tree/HEAD/${project.rootDir.relativePath(project.projectDir)}"
+    pom.licenses {
+        license {
+            name = 'MIT'
+            url = 'https://github.com/Spookly-Network/Spookly-Core/blob/main/LICENSE'
+        }
+    }
+    pom.developers {
+        developer {
+            id = 'nehlen'
+            name = 'Niklas Ehlen'
+            email = 'niklas.ehlen@spookly.net'
+        }
+    }
+    pom.issueManagement {
+        system = "GitHub"
+        url = "https://github.com/Spookly-Network/Spookly-Core/issues"
+    }
+}
