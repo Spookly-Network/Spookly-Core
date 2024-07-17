@@ -6,8 +6,8 @@ import io.papermc.paper.chat.ChatRenderer;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 
-import de.spookly.punishments.PunishReason;
-import de.spookly.punishments.Punishment;
+import de.spookly.punishment.PunishReason;
+import de.spookly.punishment.Punishment;
 
 import org.bukkit.entity.Player;
 

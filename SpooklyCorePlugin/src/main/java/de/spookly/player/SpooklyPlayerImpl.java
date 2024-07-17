@@ -1,4 +1,4 @@
-package de.spookly.players;
+package de.spookly.player;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -17,9 +17,8 @@ import net.kyori.adventure.text.format.TextColor;
 
 import de.spookly.SpooklyCorePlugin;
 import de.spookly.placeholder.PlaceholderContext;
-import de.spookly.player.SpooklyPlayer;
-import de.spookly.punishments.PunishReason;
-import de.spookly.punishments.Punishment;
+import de.spookly.punishment.PunishReason;
+import de.spookly.punishment.Punishment;
 
 import org.bukkit.entity.Player;
 

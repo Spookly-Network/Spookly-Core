@@ -12,12 +12,12 @@ import net.kyori.adventure.text.format.TextColor;
 
 import de.spookly.configuration.ConfigurationWrapper;
 import de.spookly.database.DatabaseConnection;
-import de.spookly.events.EventExecuter;
+import de.spookly.event.EventExecuter;
 import de.spookly.phase.GamePhaseManager;
 import de.spookly.placeholder.PlaceholderManager;
 import de.spookly.player.SpooklyOfflinePlayer;
 import de.spookly.player.SpooklyPlayer;
-import de.spookly.punishments.Punishment;
+import de.spookly.punishment.Punishment;
 import de.spookly.team.Team;
 import de.spookly.team.TeamManager;
 import de.spookly.team.display.TeamDisplay;

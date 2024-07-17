@@ -1,4 +1,4 @@
-package de.spookly.Phase;
+package de.spookly.manager;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

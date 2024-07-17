@@ -23,10 +23,10 @@ import de.spookly.database.subscriber.VoidSubscriber;
 import de.spookly.player.PlayerRegisterEvent;
 import de.spookly.player.PlayerUnregisterEvent;
 import de.spookly.player.SpooklyOfflinePlayer;
+import de.spookly.player.SpooklyOfflinePlayerImpl;
 import de.spookly.player.SpooklyPlayer;
-import de.spookly.players.SpooklyOfflinePlayerImpl;
-import de.spookly.players.SpooklyPlayerImpl;
-import de.spookly.punishments.Punishment;
+import de.spookly.player.SpooklyPlayerImpl;
+import de.spookly.punishment.Punishment;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

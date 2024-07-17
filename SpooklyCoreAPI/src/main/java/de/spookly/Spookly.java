@@ -12,7 +12,7 @@ import de.spookly.phase.GamePhaseManager;
 import de.spookly.placeholder.PlaceholderManager;
 import de.spookly.player.SpooklyOfflinePlayer;
 import de.spookly.player.SpooklyPlayer;
-import de.spookly.punishments.Punishment;
+import de.spookly.punishment.Punishment;
 import de.spookly.team.Team;
 import de.spookly.team.TeamManager;
 

@@ -10,10 +10,10 @@ import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
 import de.spookly.player.SpooklyOfflinePlayer;
-import de.spookly.players.SpooklyOfflinePlayerImpl;
+import de.spookly.player.SpooklyOfflinePlayerImpl;
+import de.spookly.punishment.Punishment;
 import de.spookly.punishment.PunishmentImpl;
-import de.spookly.punishments.Punishment;
-import de.spookly.punishments.PunishmentType;
+import de.spookly.punishment.PunishmentType;
 
 public class LoadPlayerSubscriber implements Subscriber<Document> {
 

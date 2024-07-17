@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import de.spookly.database.DatabaseComponentCodec;
-import de.spookly.punishments.Punishment;
+import de.spookly.punishment.Punishment;
 
 /**
  * Interface representing an offline player in the Spookly system.

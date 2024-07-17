@@ -11,17 +11,16 @@ import net.kyori.adventure.translation.GlobalTranslator;
 import net.kyori.adventure.translation.TranslationRegistry;
 import net.kyori.adventure.util.UTF8ResourceBundleControl;
 
-import de.spookly.Phase.GamePhaseManagerImpl;
 import de.spookly.configuration.Config;
 import de.spookly.configuration.ConfigurationWrapper;
 import de.spookly.database.MongoDatabaseConfiguration;
-import de.spookly.events.EventExecuterImpl;
+import de.spookly.event.EventExecuterImpl;
 import de.spookly.instance.SpooklyCore;
 import de.spookly.listener.Listener;
+import de.spookly.manager.GamePhaseManagerImpl;
 import de.spookly.manager.NametagManager;
 import de.spookly.manager.PlayerManager;
 import de.spookly.manager.TeamManagerImpl;
-import de.spookly.phase.GamePhaseManager;
 import de.spookly.placeholder.PlaceholderManager;
 import de.spookly.placeholder.PlaceholderManagerImpl;
 import de.spookly.plugin.SpooklyPlugin;
@@ -45,7 +44,7 @@ public class SpooklyCorePlugin extends SpooklyPlugin implements org.bukkit.event
     @Getter private PlayerManager playerManager;
     @Getter private NametagManager nametagManager;
     @Getter private TeamManager teamManager;
-    @Getter private GamePhaseManager gamePhaseManager;
+    @Getter private GamePhaseManagerImpl gamePhaseManager;
     @Getter private PlaceholderManager placeholderManager;
 
     @Getter private TranslationRegistry translationRegistry;

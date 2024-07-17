@@ -1,4 +1,4 @@
-package de.spookly.events;
+package de.spookly.event;
 
 import org.bukkit.event.Event;
 

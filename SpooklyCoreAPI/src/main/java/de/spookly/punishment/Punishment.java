@@ -1,4 +1,4 @@
-package de.spookly.punishments;
+package de.spookly.punishment;
 
 import java.time.Instant;
 import java.util.UUID;

@@ -1,4 +1,4 @@
-package de.spookly.players;
+package de.spookly.player;
 
 import static com.mongodb.client.model.Filters.eq;
 
@@ -14,10 +14,7 @@ import org.jetbrains.annotations.Nullable;
 import de.spookly.SpooklyCorePlugin;
 import de.spookly.database.DatabaseComponentCodec;
 import de.spookly.database.subscriber.VoidSubscriber;
-import de.spookly.player.PlayerPointsChangeEvent;
-import de.spookly.player.SpooklyOfflinePlayer;
-import de.spookly.player.SpooklyPlayer;
-import de.spookly.punishments.Punishment;
+import de.spookly.punishment.Punishment;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

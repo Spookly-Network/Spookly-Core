@@ -1,4 +1,4 @@
-package de.spookly.events;
+package de.spookly.event;
 
 import java.util.ArrayList;
 import java.util.HashMap;

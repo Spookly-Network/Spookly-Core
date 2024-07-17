@@ -10,8 +10,6 @@ import org.bson.codecs.pojo.annotations.BsonIgnore;
 import org.bson.codecs.pojo.annotations.BsonProperty;
 
 import de.spookly.player.SpooklyOfflinePlayer;
-import de.spookly.punishments.Punishment;
-import de.spookly.punishments.PunishmentType;
 
 @Getter
 public class PunishmentImpl implements Punishment {
