@@ -58,14 +58,7 @@ jobs:
           restore-keys: ${{ runner.os }}-gradle
 
       - name: Publish API Module
-        run: ./gradlew :api:publish
-        env:
-          MAVEN_USERNAME: ${{ secrets.MVN_SERVER_USER }}
-          MAVEN_PASSWORD: ${{ secrets.MVN_SERVER_TOKEN }}
-          MAVEN_REPO_URL: ${{ secrets.MVN_SERVER_URL }}
-
-      - name: Publish Implementation Module
-        run: ./gradlew :impl:publish
+        run: ./gradlew :SpooklyCoreAPI:publish
         env:
           MAVEN_USERNAME: ${{ secrets.MVN_SERVER_USER }}
           MAVEN_PASSWORD: ${{ secrets.MVN_SERVER_TOKEN }}
