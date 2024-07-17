@@ -39,7 +39,8 @@ allprojects {
         compileOnly 'org.mongodb:mongodb-driver-reactivestreams:' + project.mongodb_driver_version
         
         //Internal API's
-        implementation 'org.ipvp:canvas:1.7.1'
+        //Canvas is a spookly fork from another project. Will prop. have another namespace in the future to reslove conflicts with original
+        implementation 'org.ipvp:canvas:1.7.2'
 
         //NMS / Paper-API
         paperweight.paperDevBundle(project.paper_version)
