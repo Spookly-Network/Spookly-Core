@@ -75,7 +75,7 @@ public class SpooklyPlayerImpl extends SpooklyOfflinePlayerImpl implements Spook
             return (Component) Component.text()
                     .append(prefix())
                     .append(sourceDisplayName.color(nameColor()))
-                    .append(Component.text(" ›› ").color(NamedTextColor.GRAY)) // Separator
+                    .append(Component.text(" \u203A\u203A ").color(NamedTextColor.GRAY)) // Separator ››
                     .append(SpooklyCorePlugin.getInstance().getPlaceholderManager().replacePlaceholder(message, context))
                     .build();
         };
