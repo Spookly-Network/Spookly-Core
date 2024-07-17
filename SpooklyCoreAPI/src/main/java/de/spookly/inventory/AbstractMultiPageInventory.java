@@ -155,12 +155,23 @@ public abstract class AbstractMultiPageInventory implements MultiPageInventory {
     }
 
     /**
+     * @deprecated in favour of {@link #nextButtonSlots(Integer...)} to integrate new canvas api
      * Sets the slot index for the next button.
      *
      * @param slotIndex the slot index for the next button.
      */
+    @Deprecated
     public void nextButtonSlot(Integer slotIndex) {
-        switcherInventoryPages = switcherInventoryPages.nextButtonSlot(slotIndex);
+        nextButtonSlots(slotIndex);
+    }
+
+    /**
+     * Sets the slot index for the next button.
+     *
+     * @param slotIndexes the slot index for the next button.
+     */
+    public void nextButtonSlots(Integer... slotIndexes) {
+        switcherInventoryPages = switcherInventoryPages.nextButtonSlots(slotIndexes);
     }
 
     /**
@@ -182,12 +193,23 @@ public abstract class AbstractMultiPageInventory implements MultiPageInventory {
     }
 
     /**
+     * @deprecated in favour of {@link #previousButtonSlots(Integer...)} to integrate new canvas api
+     * Sets the slot index for the previous button.
+     *
+     * @param slotIndexes the slot indexes for the previous button.
+     */
+    @Deprecated
+    public void previousButtonSlot(Integer slotIndexes) {
+        previousButtonSlots(slotIndexes);
+    }
+
+    /**
      * Sets the slot index for the previous button.
      *
      * @param slotIndex the slot index for the previous button.
      */
-    public void previousButtonSlot(Integer slotIndex) {
-        switcherInventoryPages = switcherInventoryPages.previousButtonSlot(slotIndex);
+    public void previousButtonSlots(Integer... slotIndex) {
+        switcherInventoryPages = switcherInventoryPages.previousButtonSlots(slotIndex);
     }
 
     /**
