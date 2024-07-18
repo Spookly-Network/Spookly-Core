@@ -3,11 +3,12 @@ package de.spookly.inventory;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 import net.kyori.adventure.text.Component;
-import org.ipvp.canvas.Menu;
-import org.ipvp.canvas.slot.ClickOptions;
-import org.ipvp.canvas.slot.Slot;
-import org.ipvp.canvas.slot.SlotSettings;
-import org.ipvp.canvas.type.ChestMenu;
+
+import de.spookly.canvas.Menu;
+import de.spookly.canvas.slot.ClickOptions;
+import de.spookly.canvas.slot.Slot;
+import de.spookly.canvas.slot.SlotSettings;
+import de.spookly.canvas.type.ChestMenu;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;

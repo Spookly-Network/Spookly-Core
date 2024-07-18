@@ -1,6 +1,6 @@
 main: de.spookly.SpooklyCorePlugin
 name: SpooklyCore
-version: ${project.version}-${build.number}
+version: '${version}'
 api-version: 1.21
 website: https://spookly.net
 authors:

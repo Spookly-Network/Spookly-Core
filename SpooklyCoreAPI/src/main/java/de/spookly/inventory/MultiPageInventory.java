@@ -2,9 +2,9 @@ package de.spookly.inventory;
 
 import java.util.function.Consumer;
 
-import org.ipvp.canvas.Menu;
-import org.ipvp.canvas.mask.Mask;
-import org.ipvp.canvas.slot.Slot;
+import de.spookly.canvas.Menu;
+import de.spookly.canvas.mask.Mask;
+import de.spookly.canvas.slot.Slot;
 
 import org.bukkit.inventory.ItemStack;
 

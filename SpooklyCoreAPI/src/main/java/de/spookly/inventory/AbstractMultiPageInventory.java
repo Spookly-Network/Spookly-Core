@@ -4,15 +4,16 @@ import java.util.List;
 import java.util.function.Consumer;
 
 import net.kyori.adventure.text.Component;
-import org.ipvp.canvas.Menu;
-import org.ipvp.canvas.mask.BinaryMask;
-import org.ipvp.canvas.mask.Mask;
-import org.ipvp.canvas.paginate.PaginatedMenuBuilder;
-import org.ipvp.canvas.paginate.PaginatedMenuTitles;
-import org.ipvp.canvas.slot.ClickOptions;
-import org.ipvp.canvas.slot.Slot;
-import org.ipvp.canvas.slot.SlotSettings;
-import org.ipvp.canvas.type.ChestMenu;
+
+import de.spookly.canvas.Menu;
+import de.spookly.canvas.mask.BinaryMask;
+import de.spookly.canvas.mask.Mask;
+import de.spookly.canvas.paginate.PaginatedMenuBuilder;
+import de.spookly.canvas.paginate.PaginatedMenuTitles;
+import de.spookly.canvas.slot.ClickOptions;
+import de.spookly.canvas.slot.Slot;
+import de.spookly.canvas.slot.SlotSettings;
+import de.spookly.canvas.type.ChestMenu;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
@@ -37,7 +38,6 @@ public abstract class AbstractMultiPageInventory implements MultiPageInventory {
     public AbstractMultiPageInventory(Integer rows, Component title, Player player) {
         Menu.Builder pageTemplate = ChestMenu.builder(rows).title(title).redraw(true);
         BinaryMask.Builder itemSlots = BinaryMask.builder(pageTemplate.getDimensions());
-
         for (int i = 1; i <= rows; i++) {
             itemSlots = itemSlots.row(i).pattern("111111111");
         }

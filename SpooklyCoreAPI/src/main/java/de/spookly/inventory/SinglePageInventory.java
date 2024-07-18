@@ -1,7 +1,7 @@
 package de.spookly.inventory;
 
-import org.ipvp.canvas.Menu;
-import org.ipvp.canvas.slot.Slot;
+import de.spookly.canvas.Menu;
+import de.spookly.canvas.slot.Slot;
 
 import org.bukkit.inventory.ItemStack;
 
