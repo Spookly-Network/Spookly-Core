@@ -9,3 +9,12 @@ dependencies {
     implementation project(':SpooklyCoreAPI')
     compileOnly 'de.nehlen:SpooklyCloudNetUtils:' + rootProject.cloud_utils_version
 }
+
+processResources {
+    def props = [version: version]
+    inputs.properties props
+    filteringCharset 'UTF-8'
+    filesMatching('plugin.yml') {
+        expand props
+    }
+}
