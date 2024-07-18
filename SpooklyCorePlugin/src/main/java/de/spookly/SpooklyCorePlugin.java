@@ -11,6 +11,7 @@ import net.kyori.adventure.translation.GlobalTranslator;
 import net.kyori.adventure.translation.TranslationRegistry;
 import net.kyori.adventure.util.UTF8ResourceBundleControl;
 
+import de.spookly.canvas.MenuFunctionListener;
 import de.spookly.configuration.Config;
 import de.spookly.configuration.ConfigurationWrapper;
 import de.spookly.database.MongoDatabaseConfiguration;
@@ -93,6 +94,7 @@ public class SpooklyCorePlugin extends SpooklyPlugin implements org.bukkit.event
 
         //Listener for event excuter
         registerEvent(new Listener());
+        registerEvent(new MenuFunctionListener());
         getLogger().info("Initialized bukkit event listener");
 
         this.translationRegistry = TranslationRegistry.create(Key.key("spookly:value"));
