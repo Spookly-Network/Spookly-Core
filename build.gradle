@@ -40,7 +40,7 @@ allprojects {
         
         //Internal API's
         //Canvas is a spookly fork from another project. Will prop. have another namespace in the future to reslove conflicts with original
-        implementation 'org.ipvp:canvas:1.7.2'
+        implementation 'org.ipvp:canvas:1.7.3'
 
         //NMS / Paper-API
         paperweight.paperDevBundle(project.paper_version)

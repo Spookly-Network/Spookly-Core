@@ -8,6 +8,7 @@ import org.ipvp.canvas.Menu;
 import org.ipvp.canvas.mask.BinaryMask;
 import org.ipvp.canvas.mask.Mask;
 import org.ipvp.canvas.paginate.PaginatedMenuBuilder;
+import org.ipvp.canvas.paginate.PaginatedMenuTitles;
 import org.ipvp.canvas.slot.ClickOptions;
 import org.ipvp.canvas.slot.Slot;
 import org.ipvp.canvas.slot.SlotSettings;
@@ -125,6 +126,10 @@ public abstract class AbstractMultiPageInventory implements MultiPageInventory {
         switcherInventoryPages = switcherInventoryPages.addItem(SlotSettings.builder()
                 .clickOptions(clickOptions.build())
                 .item(itemStack).build());
+    }
+
+    public void titles(PaginatedMenuTitles titles) {
+        switcherInventoryPages = switcherInventoryPages.paginateMenuTitles(titles);
     }
 
     /**
