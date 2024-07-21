@@ -2,6 +2,8 @@ package de.spookly.plugin;
 
 import javax.annotation.Nonnull;
 
+import lombok.Getter;
+
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
@@ -10,8 +12,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
-
-import lombok.Getter;
 
 public abstract class SpooklyPlugin extends JavaPlugin {
 

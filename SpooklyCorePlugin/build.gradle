@@ -11,7 +11,7 @@ dependencies {
 }
 
 processResources {
-    def props = [version: version]
+    def props = [version: version, mongodb_driver_version: mongodb_driver_version, mongodb_crypt_version: mongodb_crypt_version]
     inputs.properties props
     filteringCharset 'UTF-8'
     filesMatching('plugin.yml') {
