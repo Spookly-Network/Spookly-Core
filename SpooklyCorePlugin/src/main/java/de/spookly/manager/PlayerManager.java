@@ -32,6 +32,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 public class PlayerManager {
@@ -49,12 +50,8 @@ public class PlayerManager {
         this.plugin = plugin;
         this.collection = plugin.getMongoDatabaseConfiguration().getCollection("player");
 
-        Spookly.getServer().getEventExecuter().register(PlayerJoinEvent.class, event -> {
+        Spookly.getServer().getEventExecuter().register(PlayerLoginEvent.class, event -> {
             initPlayer(event.getPlayer());
-        });
-
-        Spookly.getServer().getEventExecuter().register(AsyncPlayerPreLoginEvent.class, event -> {
-            //
         });
 
         Spookly.getServer().getEventExecuter().register(PlayerQuitEvent.class, event -> {

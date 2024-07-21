@@ -119,7 +119,6 @@ public class SpooklyCorePlugin extends SpooklyPlugin implements org.bukkit.event
         GlobalTranslator.translator().addSource(translationRegistry);
     }
 
-    @EventHandler
     public void handleAsyncLogin(AsyncPlayerPreLoginEvent event) {
 //        this.getLogger().info("Logging login from " + event.getUniqueId());
 //        //Load Punishments pre login so it can be checked on sync login
@@ -135,7 +134,6 @@ public class SpooklyCorePlugin extends SpooklyPlugin implements org.bukkit.event
     }
 
     public void handleLogin(PlayerLoginEvent event) {
-        playerManager.initPlayer(event.getPlayer());
 
 //        if(!playerManager.punishmentCache.containsKey(event.getPlayer().getUniqueId()))
 //            event.disallow(PlayerLoginEvent.Result.KICK_OTHER, Component.text("An error ocurred. Please try again later!"));

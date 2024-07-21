@@ -33,6 +33,7 @@ public abstract class SpooklyPlugin extends JavaPlugin {
         this.pluginManager = getServer().getPluginManager();
         this.scheduler = Bukkit.getScheduler();
         this.load();
+        scheduler.runTaskLater(this, this::postStartup, 1L);
     }
 
     public final void onEnable() {
@@ -60,6 +61,6 @@ public abstract class SpooklyPlugin extends JavaPlugin {
     }
 
     public boolean isPluginPresent(@Nonnull String name) {
-        return this.getServer().getPluginManager().getPlugin(name) != null;
+        return this.pluginManager.getPlugin(name) != null;
     }
 }
