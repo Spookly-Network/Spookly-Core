@@ -13,14 +13,18 @@ import de.spookly.player.SpooklyPlayer;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.scoreboard.ScoreboardManager;
 import org.bukkit.scoreboard.Team;
 
 public class NametagManager {
 
     public NametagManager() {
-        Spookly.getServer().getEventExecuter().register(PlayerRegisterEvent.class, event -> {
-            refreshNameTag(event.getSpooklyPlayer());
+        Spookly.getServer().getEventExecuter().register(PlayerJoinEvent.class, event -> {
+            SpooklyPlayer spPlayer = Spookly.getPlayer(event.getPlayer().getUniqueId());
+            if (spPlayer != null) {
+                refreshNameTag(spPlayer);
+            }
         });
     }
 
